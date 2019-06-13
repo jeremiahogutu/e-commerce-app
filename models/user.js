@@ -21,9 +21,7 @@ const userSchema = new mongoose.Schema({
     },
     about: {
         type: String,
-        trim: true,
-        required: true,
-        unique: 32
+        trim: true
     },
     salt: String,
     role: {
