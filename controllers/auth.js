@@ -1,4 +1,4 @@
-const User = require('../models/user');
+const Auth = require('../models/user');
 const jwt = require('jsonwebtoken'); // to generate signed token
 const expressJwt = require('express-jwt'); // for authorization check
 const {errorHandler} = require('../helpers/dbErrorHandler');
@@ -6,7 +6,7 @@ const {errorHandler} = require('../helpers/dbErrorHandler');
 
 exports.signup = (req, res) => {
     console.log("req body", req.body);
-    const user = new User(req.body);
+    const user = new Auth(req.body);
     user.save((err, user) => {
         if (err) {
             return res.status(400).json({
@@ -24,10 +24,10 @@ exports.signup = (req, res) => {
 exports.signin = (req, res) => {
     // find the user based on email
     const {email, password} = req.body;
-    User.findOne({email}, (err, user) => {
+    Auth.findOne({email}, (err, user) => {
         if (err || !user) {
             return res.status(400).json({
-                err: 'User with that email does not exist. Please signup'
+                err: 'Auth with that email does not exist. Please signup'
             })
         }
         // if user is found make sure the email and password match
@@ -53,3 +53,8 @@ exports.signout = (req, res) => {
     res.clearCookie('t')
     res.json({message: 'Signout success'})
 };
+
+exports.requireSignin = expressJwt({
+    secret: process.env.JWT_SECRET,
+    userProperty: "auth"
+});
