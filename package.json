@@ -1,0 +1,33 @@
+{
+  "name": "e-commerce-app",
+  "version": "1.0.0",
+  "description": "e-commerce app using react node and mongo db",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jeremiahogutu/e-commerce-app.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jeremiahogutu/e-commerce-app/issues"
+  },
+  "homepage": "https://github.com/jeremiahogutu/e-commerce-app#readme",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "cookie-parser": "^1.4.4",
+    "dotenv": "^8.0.0",
+    "express": "^4.17.1",
+    "express-jwt": "^5.3.1",
+    "express-validator": "^5.3.1",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^5.5.15",
+    "morgan": "^1.9.1",
+    "nodemon": "^1.19.1",
+    "uuid": "^3.3.2"
+  }
+}
