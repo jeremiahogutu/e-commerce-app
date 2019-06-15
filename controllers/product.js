@@ -8,7 +8,7 @@ exports.productById = (req, res, next, id) => {
     Product.findById(id).exec((err, product) => {
         if (err || !product) {
             return res.status(400).json({
-                error: "Image could not be uploaded"
+                error: "Product not found"
             })
         }
         req.product = product;
@@ -19,7 +19,7 @@ exports.productById = (req, res, next, id) => {
 exports.read = (req, res) => {
     req.product.photo = undefined;
     return res.json(req.product)
-}
+};
 
 exports.create = (req, res) => {
     let form = new formidable.IncomingForm();
@@ -80,3 +80,17 @@ exports.create = (req, res) => {
         })
     })
 };
+
+exports.remove = (req, res) => {
+    let product = req.product;
+    product.remove((err, deletedProduct) => {
+        if (err) {
+            return res.status(400).json({
+                error: errorHandler(err)
+            })
+        }
+        res.json({
+            message: 'Product deleted successfully'
+        })
+    })
+}
