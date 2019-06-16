@@ -155,3 +155,24 @@ exports.update = (req, res) => {
         })
     })
 };
+
+exports.list = (req, res) => {
+    let order = req.query.order ? req.query.order : 'asc';
+    let sortBy = req.query.sortBy ? req.query.sortBy : '_id';
+    let limit = req.query.limit ? req.query.limit : 6
+
+
+    Product.find()
+        .select("-photo")
+        .populate('category')
+        .sort([[sortBy, order]])
+        .limit(limit)
+        .exec((err, products) => {
+            if (err) {
+                return res.status(400).json({
+                    error: 'Products not found'
+                })
+            }
+            res.send(products)
+        })
+};
