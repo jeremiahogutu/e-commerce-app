@@ -9,7 +9,8 @@ const {
     remove,
     update,
     listRelated,
-    listCategories
+    listCategories,
+    listBySearch
 } = require('../controllers/product');
 const {requireSignin, isAuth, isAdmin} = require('../controllers/auth');
 const {userById} = require("../controllers/user");
@@ -45,10 +46,8 @@ router.param('productId', productById);
 router.get('/products', list);
 router.get('/products/related/:productId', listRelated);
 router.get('/products/categories', listCategories);
+router.post("/products/by/search", listBySearch);
 
-// sold / new arrivals
-// products sold = /products?sortBy=sold&order=desc&limit=4
-// products new arrivals = /products?sortBy=createdAt&order=desc&limit=4
-// if no params are sent, then all products are returned
+
 
 module.exports = router;
