@@ -8,7 +8,8 @@ const {
     list,
     remove,
     update,
-    listRelated
+    listRelated,
+    listCategories
 } = require('../controllers/product');
 const {requireSignin, isAuth, isAdmin} = require('../controllers/auth');
 const {userById} = require("../controllers/user");
@@ -43,6 +44,8 @@ router.param('productId', productById);
 
 router.get('/products', list);
 router.get('/products/related/:productId', listRelated);
+router.get('/products/categories', listCategories);
+
 // sold / new arrivals
 // products sold = /products?sortBy=sold&order=desc&limit=4
 // products new arrivals = /products?sortBy=createdAt&order=desc&limit=4
