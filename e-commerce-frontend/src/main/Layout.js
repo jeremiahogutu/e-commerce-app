@@ -22,7 +22,7 @@ const Layout = ({
                     </div>
                 </div>
             </section>
-            <div className={className}>{children}</div>
+            <div className={className} style={{justifyContent: 'center'}}>{children}</div>
         </div>
 
     );
