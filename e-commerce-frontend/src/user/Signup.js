@@ -1,12 +1,15 @@
 import React from 'react';
+import Layout from "../main/Layout";
+import {API} from "../config";
 
 const Signup = () => {
     return (
-        <div className='container'>
-            <div className='notification has-background-white'>
-                <h2>Signup</h2>
-            </div>
-        </div>
+        <Layout
+            title="Signup"
+            description="Signup to Node React E-commerce App"
+        >
+            {API}
+        </Layout>
     );
 };
 

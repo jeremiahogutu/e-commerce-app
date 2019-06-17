@@ -1,12 +1,14 @@
 import React from 'react';
+import Layout from "../main/Layout";
 
 const Signin = () => {
     return (
-        <div className='container'>
-            <div className='notification has-background-white'>
-                <h2>Signin</h2>
-            </div>
-        </div>
+        <Layout
+            title="Signin"
+            description="Signin to Node React E-commerce App"
+        >
+            ....
+        </Layout>
     );
 };
 
