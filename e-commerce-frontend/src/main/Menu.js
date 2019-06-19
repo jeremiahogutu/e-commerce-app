@@ -36,7 +36,7 @@ const Menu = () => {
     const closeNav = () => {
         document.getElementById("mySidenav").style.width = "0";
     };
-    
+
     return (
         <nav className="navbar is-link is-fixed-top">
             <div id="mySidenav" className="sidenav">

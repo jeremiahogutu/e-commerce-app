@@ -13,9 +13,35 @@ const Signup = () => {
         success: false
     });
 
+    const {name, email, password} = values;
+
     const handleChange = userInput => event => {
         setValues({...values, error: false, [userInput]: event.target.value })
     };
+
+    const signup = user => {
+        fetch(`${API}/signup`, {
+            method: "POST",
+            headers: {
+                Accept: 'application/json',
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(user)
+        })
+            .then(response => {
+                return response.json()
+            })
+            .catch(err => {
+                console.log(err)
+            })
+    };
+
+    const clickSubmit = event => {
+        event.preventDefault();
+        signup({name, email, password})
+    };
+
+
 
     const signUpForm = () => (
         <form style={{maxWidth: '900px'}}>
@@ -51,8 +77,8 @@ const Signup = () => {
             </div>
             <div className="field">
                 <p className="control">
-                    <button className="button is-success">
-                        Login
+                    <button onClick={clickSubmit} className="button is-success">
+                        Submit
                     </button>
                 </p>
             </div>
