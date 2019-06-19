@@ -1,16 +1,28 @@
-import React from 'react';
+import React, {useState} from 'react';
 import Layout from "../main/Layout";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faLock, faUser, faEnvelope} from "@fortawesome/free-solid-svg-icons";
 import {API} from "../config";
 
 const Signup = () => {
+    const [values, setValues] = useState({
+        name: '',
+        email: '',
+        password: '',
+        error: '',
+        success: false
+    });
+
+    const handleChange = userInput => event => {
+        setValues({...values, error: false, [userInput]: event.target.value })
+    };
+
     const signUpForm = () => (
         <form style={{maxWidth: '900px'}}>
             <div className="field">
                 <label className="label">Name</label>
                 <p className="control is-expanded has-icons-left">
-                    <input className="input" type="text" placeholder="Name"/>
+                    <input onChange={handleChange('name')} className="input" type="text" placeholder="Name"/>
                     <span className="icon is-small is-left">
           <FontAwesomeIcon icon={faUser}/>
         </span>
@@ -19,7 +31,7 @@ const Signup = () => {
             <div className="field">
                 <label className="label">Email</label>
                 <p className="control has-icons-left has-icons-right">
-                    <input className="input" type="email" placeholder="Email"/>
+                    <input onChange={handleChange('email')} className="input" type="email" placeholder="Email"/>
                     <span className="icon is-small is-left">
       <FontAwesomeIcon icon={faEnvelope}/>
     </span>
@@ -31,7 +43,7 @@ const Signup = () => {
             <div className="field">
                 <label className="label">Password</label>
                 <p className="control has-icons-left">
-                    <input className="input" type="password" placeholder="Password"/>
+                    <input onChange={handleChange('password')} className="input" type="password" placeholder="Password"/>
                     <span className="icon is-small is-left">
       <FontAwesomeIcon icon={faLock}/>
     </span>
@@ -55,6 +67,7 @@ const Signup = () => {
         >
             <div className="notification has-background-white">
                 {signUpForm()}
+                {JSON.stringify(values)}
             </div>
         </Layout>
     );

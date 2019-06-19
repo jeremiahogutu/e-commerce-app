@@ -31,19 +31,16 @@ const Menu = () => {
 
     const openNav = () => {
         document.getElementById("mySidenav").style.width = "250px";
-    }
+    };
 
     const closeNav = () => {
         document.getElementById("mySidenav").style.width = "0";
-    }
+    };
+    
     return (
         <nav className="navbar is-link is-fixed-top">
             <div id="mySidenav" className="sidenav">
-                {/*<a href="javascript:void(0)" className="closebtn" onClick={closeNav}>&times;</a>*/}
-                {/*<a href="#">About</a>*/}
-                {/*<a href="#">Services</a>*/}
-                {/*<a href="#">Clients</a>*/}
-                {/*<a href="#">Contact</a>*/}
+                <span className="closebtn" onClick={closeNav}>&times;</span>
                 <aside className="menu">
                     <p className="menu-label">
                         E-Commerce
