@@ -98,17 +98,11 @@ const Signup = () => {
             document.getElementById('emailErrorIcon').style.visibility = 'visible';
             document.getElementById('emailErrorMessage').style.visibility = 'visible';
             document.getElementById('userEmail').classList.add('is-danger')
-        } else if (error === "Password is required" || error === "Password must contain at least 6 characters" || error === "Password must contain a number") {
+        } else if (error === "Password is required" || error === "Password must contain at least 6 characters" || error === "Password must contain a number" || error === "Password must contain a letter") {
             document.getElementById('passwordErrorIcon').style.visibility = 'visible';
             document.getElementById('passwordErrorMessage').style.visibility = 'visible';
             document.getElementById('userPassword').classList.add('is-danger')
         }
-        return (
-
-            <div className="is-danger" style={{display: error ? '' : 'none'}}>
-                {error}
-            </div>
-        )
     };
 
     const showSuccess = () => {
@@ -205,7 +199,7 @@ const Signup = () => {
                 {showSuccess()}
                 {showError()}
                 {signUpForm()}
-                {JSON.stringify(values)}
+                {/*{JSON.stringify(values)}*/}
             </div>
         </Layout>
     );
