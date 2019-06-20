@@ -1,6 +1,7 @@
 import React from 'react';
 import {NavLink, withRouter} from "react-router-dom";
 import shoppingLogo from '../assets/cart.svg'
+import '../App.css'
 const Menu = () => {
     document.addEventListener('DOMContentLoaded', () => {
 
@@ -28,25 +29,37 @@ const Menu = () => {
 
     });
 
-    const closeDrawer = () => {
-        const sideNav = document.querySelector('.navbar-menu');
-        sideNav.classList.toggle('is-active');
+    const openNav = () => {
+        document.getElementById("mySidenav").style.width = "250px";
     };
+
+    const closeNav = () => {
+        document.getElementById("mySidenav").style.width = "0";
+    };
+
     return (
         <nav className="navbar is-link is-fixed-top">
+            <div id="mySidenav" className="sidenav">
+                <span className="closebtn" onClick={closeNav}>&times;</span>
+                <aside className="menu">
+                    <p className="menu-label">
+                        E-Commerce
+                    </p>
+                    <ul className="menu-list">
+                        <li><NavLink to="/" onClick={closeNav} activeStyle={{color: '#ff9900'}}  exact={true}>Home</NavLink></li>
+                        <li><NavLink to="/signup" onClick={closeNav} activeStyle={{color: '#ff9900'}}>SignUp</NavLink></li>
+                        <li><NavLink to="/signin" onClick={closeNav} activeStyle={{color: '#ff9900'}}>SignIn</NavLink></li>
+                    </ul>
+                </aside>
+            </div>
             <div className="navbar-brand">
+                <span style={{fontSize: '30px', cursor: 'pointer', marginLeft: '10px'}} onClick={openNav}>&#9776;</span>
                 <NavLink className="navbar-item" to="/">
                     <img src={shoppingLogo}
                          alt="shopping logo" width="112" height="28"/>
                 </NavLink>
-                <div className="navbar-burger burger" data-target="e-commerce-nav">
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                </div>
             </div>
-
-            <div id="e-commerce-nav" className="navbar-menu" onClick={closeDrawer}>
+            <div id="e-commerce-nav" className="navbar-menu">
                 <div className="navbar-start">
                     <NavLink className="navbar-item" to="/" activeStyle={{color: '#ff9900'}}  exact={true}>
                         Home
