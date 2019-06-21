@@ -82,7 +82,7 @@ const Signup = () => {
         <div className="has-text-success" style={{display: success ? 'block' : 'none'}}>
             New Account Create Please <NavLink to="/signin" className="has-text-link" style={{textDecoration: 'none'}}>Signin</NavLink>
         </div>
-    )
+    );
 
 
     const signUpForm = () => (

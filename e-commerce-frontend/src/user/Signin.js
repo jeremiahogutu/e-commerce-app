@@ -1,8 +1,8 @@
 import React, {useState} from 'react';
 import Layout from "../main/Layout";
-import {NavLink} from "react-router-dom";
+import {Redirect} from "react-router-dom";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faLock, faUser, faEnvelope, faExclamationTriangle} from "@fortawesome/free-solid-svg-icons";
+import {faLock, faEnvelope, faExclamationTriangle} from "@fortawesome/free-solid-svg-icons";
 import {signin} from "../auth";
 
 const Signin = () => {
@@ -22,10 +22,6 @@ const Signin = () => {
             error: false,
             [userInput]: event.target.value
         });
-
-        document.getElementById('userNameErrorIcon').style.visibility = 'hidden';
-        document.getElementById('userNameErrorMessage').style.visibility = 'hidden';
-        document.getElementById('userName').classList.remove('is-danger');
         document.getElementById('emailErrorIcon').style.visibility = 'hidden';
         document.getElementById('emailErrorMessage').style.visibility = 'hidden';
         document.getElementById('userEmail').classList.remove('is-danger');
@@ -44,23 +40,23 @@ const Signin = () => {
                     setValues({
                         ...values,
                         error: data.error,
-                        loading: false
+                        loading: false,
+                        redirectToReferrer: false,
                     })
                 } else {
                     setValues({
                         ...values,
                         redirectToReferrer: true,
-                        loading: false
                     })
                 }
             })
     };
 
     const showError = () => {
-        if (error === "Name is required") {
-            document.getElementById('userNameErrorIcon').style.visibility = 'visible';
-            document.getElementById('userNameErrorMessage').style.visibility = 'visible';
-            document.getElementById('userName').classList.add('is-danger')
+        if (error === "Email is required") {
+            document.getElementById('emailErrorIcon').style.visibility = 'visible';
+            document.getElementById('emailErrorMessage').style.visibility = 'visible';
+            document.getElementById('userEmail').classList.add('is-danger')
         } else if (error === "Email is invalid") {
             document.getElementById('emailErrorIcon').style.visibility = 'visible';
             document.getElementById('emailErrorMessage').style.visibility = 'visible';
@@ -69,19 +65,29 @@ const Signin = () => {
             document.getElementById('passwordErrorIcon').style.visibility = 'visible';
             document.getElementById('passwordErrorMessage').style.visibility = 'visible';
             document.getElementById('userPassword').classList.add('is-danger')
-        } else if (error === "") {
-
+        } else if (error === "Email and password don't match") {
+            return (
+                <div className="has-text-danger" style={{display: 'block'}}>
+                    {error}
+                </div>
+            )
         }
     };
 
     const showLoading = () => (
-       loading && (<div className="has-text-info"></div>)
+        loading && (<div className="has-text-info">
+            <h2>Loading...</h2>
+        </div>)
     );
 
+    const redirectUser = () => {
+        if (redirectToReferrer) {
+            return <Redirect to="/"/>
+        }
+    };
 
-    const signUpForm = () => (
+    const signInForm = () => (
         <form name="myForm" style={{maxWidth: '900px'}}>
-            <p id="userNameErrorMessage" className="help is-danger" style={{visibility: 'hidden'}}>{error}</p>
             <div className="field">
                 <label className="label">Email</label>
                 <p className="control has-icons-left has-icons-right">
@@ -134,17 +140,19 @@ const Signin = () => {
 
     return (
         <Layout
-            title="Signup"
-            description="Signup to Node React E-commerce App"
+            title="Signin"
+            description="Signin to Node React E-commerce App"
             className="container is-fluid is-flex is-centered"
         >
             <div className="notification has-background-white">
-                {showSuccess()}
+                {showLoading()}
                 {showError()}
-                {signUpForm()}
+                {signInForm()}
+                {redirectUser()}
+                {JSON.stringify(values)}
             </div>
         </Layout>
     );
 };
 
-export default Signup;
+export default Signin;
