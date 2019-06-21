@@ -3,7 +3,7 @@ import Layout from "../main/Layout";
 import {NavLink} from "react-router-dom";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faLock, faUser, faEnvelope, faExclamationTriangle} from "@fortawesome/free-solid-svg-icons";
-import {API} from "../config";
+import {signup} from "../auth";
 
 const Signup = () => {
     const [values, setValues] = useState({
@@ -34,22 +34,7 @@ const Signup = () => {
         document.getElementById('userPassword').classList.remove('is-danger')
     };
 
-    const signup = user => {
-        return fetch(`${API}/signup`, {
-            method: "POST",
-            headers: {
-                Accept: 'application/json',
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify(user)
-        })
-            .then(response => {
-                return response.json()
-            })
-            .catch(err => {
-                console.log(err)
-            })
-    };
+
 
     const clickSubmit = event => {
         event.preventDefault();
