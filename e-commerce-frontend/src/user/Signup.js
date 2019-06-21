@@ -1,8 +1,9 @@
 import React, {useState} from 'react';
 import Layout from "../main/Layout";
+import {NavLink} from "react-router-dom";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faLock, faUser, faEnvelope, faExclamationTriangle} from "@fortawesome/free-solid-svg-icons";
-import {API} from "../config";
+import {signup} from "../auth";
 
 const Signup = () => {
     const [values, setValues] = useState({
@@ -33,41 +34,11 @@ const Signup = () => {
         document.getElementById('userPassword').classList.remove('is-danger')
     };
 
-    const signup = user => {
-        return fetch(`${API}/signup`, {
-            method: "POST",
-            headers: {
-                Accept: 'application/json',
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify(user)
-        })
-            .then(response => {
-                return response.json()
-            })
-            .catch(err => {
-                console.log(err)
-            })
-    };
 
-    const formValidator = () => {
-        const userName = document.getElementById('userName').value;
-        const userEmail = document.getElementById('userEmail').value;
-        const userPassword = document.getElementById('userPassword').value;
-        if (userName === "") {
-            alert("Name must be filled out");
-            return false;
-        } else if (userEmail === "") {
-            alert("Email must be filled out");
-            return false;
-        } else if (userPassword === "") {
-            alert("Password must be filled out");
-            return false;
-        }
-    };
 
     const clickSubmit = event => {
         event.preventDefault();
+        setValues({...values, error: false});
         signup({name, email, password})
             .then(data => {
                 if (data.error) {
@@ -102,16 +73,16 @@ const Signup = () => {
             document.getElementById('passwordErrorIcon').style.visibility = 'visible';
             document.getElementById('passwordErrorMessage').style.visibility = 'visible';
             document.getElementById('userPassword').classList.add('is-danger')
+        } else if (error === "") {
+            
         }
     };
 
-    const showSuccess = () => {
-        return (
-            <div className="is-danger" style={{display: success ? '' : 'none'}}>
-                {success}
-            </div>
-        )
-    };
+    const showSuccess = () => (
+        <div className="has-text-success" style={{display: success ? 'block' : 'none'}}>
+            New Account Create Please <NavLink to="/signin" className="has-text-link" style={{textDecoration: 'none'}}>Signin</NavLink>
+        </div>
+    );
 
 
     const signUpForm = () => (
@@ -150,9 +121,6 @@ const Signup = () => {
                     <span className="icon is-small is-left">
       <FontAwesomeIcon icon={faEnvelope}/>
     </span>
-                    {/*                <span className="icon is-small is-right">*/}
-                    {/*  <i className="fas fa-check"/>*/}
-                    {/*</span>*/}
                     <span id="emailErrorIcon" className="icon is-small is-right" style={{visibility: 'hidden'}}>
       <FontAwesomeIcon icon={faExclamationTriangle}/>
     </span>
@@ -199,7 +167,6 @@ const Signup = () => {
                 {showSuccess()}
                 {showError()}
                 {signUpForm()}
-                {/*{JSON.stringify(values)}*/}
             </div>
         </Layout>
     );
