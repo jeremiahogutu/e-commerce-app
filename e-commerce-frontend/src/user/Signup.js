@@ -3,7 +3,7 @@ import Layout from "../main/Layout";
 import {Redirect} from "react-router-dom";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faLock, faUser, faEnvelope, faExclamationTriangle} from "@fortawesome/free-solid-svg-icons";
-import {signup, authenticate} from "../auth";
+import {signup, authenticate, isAuthenticated} from "../auth";
 
 const Signup = () => {
     const [values, setValues] = useState({
@@ -15,6 +15,7 @@ const Signup = () => {
     });
 
     const {name, email, password, error, redirectToReferrer} = values;
+    const {user} = isAuthenticated();
 
     const handleChange = userInput => event => {
         setValues({
@@ -100,7 +101,11 @@ const Signup = () => {
 
     const redirectUser = () => {
         if (redirectToReferrer) {
-            return <Redirect to="/"/>
+            if (user && user.role === 1) {
+                return <Redirect to="/admin/dashboard"/>
+            } else {
+                return <Redirect to="/user/dashboard"/>
+            }
         }
     };
 
