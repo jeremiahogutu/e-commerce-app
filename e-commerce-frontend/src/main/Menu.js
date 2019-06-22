@@ -48,8 +48,18 @@ const Menu = () => {
                         E-Commerce
                     </p>
                     <ul className="menu-list">
-                        <li><NavLink to="/" onClick={closeNav} activeStyle={{color: '#ff9900'}}
-                                     exact={true}>Home</NavLink></li>
+                        <li>
+                            <NavLink to="/" onClick={closeNav} activeStyle={{color: '#ff9900'}}
+                                     exact={true}>
+                                Home
+                            </NavLink>
+                        </li>
+                        <li>
+                            <NavLink to="/dashboard" onClick={closeNav} activeStyle={{color: '#ff9900'}}
+                                     exact={true}>
+                                Dashboard
+                            </NavLink>
+                        </li>
                         {!isAuthenticated() && (
                             <Fragment>
                                 <li>
@@ -97,6 +107,10 @@ const Menu = () => {
                 <div className="navbar-start">
                     <NavLink className="navbar-item" to="/" activeStyle={{color: '#ff9900'}} exact={true}>
                         Home
+                    </NavLink>
+                    <NavLink className="navbar-item" to="/dashboard" activeStyle={{color: '#ff9900'}}
+                             exact={true}>
+                        Dashboard
                     </NavLink>
                     {!isAuthenticated() && (
                         <Fragment>
