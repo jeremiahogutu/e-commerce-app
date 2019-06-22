@@ -40,3 +40,7 @@ export const authenticate = (data, next) => {
         next()
     }
 };
+
+export const signout = (next) => {
+
+};

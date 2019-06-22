@@ -7,8 +7,8 @@ import {signin, authenticate} from "../auth";
 
 const Signin = () => {
     const [values, setValues] = useState({
-        email: '',
-        password: '',
+        email: 'david@pm.me',
+        password: 'test1234',
         error: '',
         loading: false,
         redirectToReferrer: false
@@ -134,7 +134,7 @@ const Signin = () => {
             <div className="field">
                 <p className="control">
                     <button onClick={clickSubmit} className="button is-success">
-                        Submit
+                        Sign In
                     </button>
                 </p>
             </div>

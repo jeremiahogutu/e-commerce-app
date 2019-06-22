@@ -8,10 +8,10 @@ exports.signup = (req, res) => {
     console.log("req body", req.body);
     const {email, password} = req.body;
     const user = new Auth(req.body);
-    user.save((err, user) => {
-        if (err) {
+    user.save((error, user) => {
+        if (error) {
             return res.status(400).json({
-                err: errorHandler(err)
+                err: errorHandler(error)
             })
         }
         user.salt = undefined;
@@ -19,10 +19,11 @@ exports.signup = (req, res) => {
         // res.json({
         //     user
         // })
-        Auth.findOne({email}, (err, user) => {
-            if (err || !user) {
+
+        Auth.findOne({email}, (error, user) => {
+            if (error || !user) {
                 return res.status(400).json({
-                    err: 'Auth with that email does not exist. Please signup'
+                    error: 'Auth with that email does not exist. Please signup'
                 })
             }
             // if user is found make sure the email and password match
