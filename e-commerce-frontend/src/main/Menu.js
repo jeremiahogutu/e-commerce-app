@@ -54,12 +54,22 @@ const Menu = () => {
                                 Home
                             </NavLink>
                         </li>
-                        <li>
-                            <NavLink to="/user/dashboard" onClick={closeNav} activeStyle={{color: '#ff9900'}}
-                                     exact={true}>
-                                Dashboard
-                            </NavLink>
-                        </li>
+                        {isAuthenticated() && isAuthenticated().user.role === 0 && (
+                            <li>
+                                <NavLink to="/user/dashboard" onClick={closeNav} activeStyle={{color: '#ff9900'}}
+                                         exact={true}>
+                                    Dashboard
+                                </NavLink>
+                            </li>
+                        )}
+                        {isAuthenticated() && isAuthenticated().user.role === 1 && (
+                            <li>
+                                <NavLink to="/admin/dashboard" onClick={closeNav} activeStyle={{color: '#ff9900'}}
+                                         exact={true}>
+                                    Dashboard
+                                </NavLink>
+                            </li>
+                        )}
                         {!isAuthenticated() && (
                             <Fragment>
                                 <li>
@@ -108,10 +118,18 @@ const Menu = () => {
                     <NavLink className="navbar-item" to="/" activeStyle={{color: '#ff9900'}} exact={true}>
                         Home
                     </NavLink>
-                    <NavLink className="navbar-item" to="/user/dashboard" activeStyle={{color: '#ff9900'}}
-                             exact={true}>
-                        Dashboard
-                    </NavLink>
+                    {isAuthenticated() && isAuthenticated().user.role === 0 && (
+                        <NavLink className="navbar-item" to="/user/dashboard" activeStyle={{color: '#ff9900'}}
+                                 exact={true}>
+                            Dashboard
+                        </NavLink>
+                    )}
+                    {isAuthenticated() && isAuthenticated().user.role === 1 && (
+                        <NavLink className="navbar-item" to="/admin/dashboard" activeStyle={{color: '#ff9900'}}
+                                 exact={true}>
+                            Dashboard
+                        </NavLink>
+                    )}
                     {!isAuthenticated() && (
                         <Fragment>
                             <NavLink className="navbar-item" to="/signup" activeStyle={{color: '#ff9900'}}>

@@ -52,24 +52,6 @@ const AdminDashboard = () => {
         )
     };
 
-    const purchaseHistory = () => {
-        return (
-            <Fragment>
-                <div className="message-header has-background-grey-lighter" style={{marginTop: '40px'}}>
-                    <p className="has-text-black is-size-4">Purchase history</p>
-                </div>
-                <div className="message-body has-background-white"
-                     style={{border: '1px solid #dbdbdb', borderTop: 0, padding: 0}}>
-                    <div className="list" style={{borderRadius: 0}}>
-                        <li className="list-item">
-                            history
-                        </li>
-                    </div>
-                </div>
-            </Fragment>
-        )
-    }
-
     return (
         <Layout
             title="Dashboard"
