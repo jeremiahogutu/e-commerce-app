@@ -1,9 +1,9 @@
 import React, {useState} from 'react';
 import Layout from "../main/Layout";
-import {NavLink} from "react-router-dom";
+import {Redirect} from "react-router-dom";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faLock, faUser, faEnvelope, faExclamationTriangle} from "@fortawesome/free-solid-svg-icons";
-import {signup} from "../auth";
+import {signup, authenticate} from "../auth";
 
 const Signup = () => {
     const [values, setValues] = useState({
@@ -11,10 +11,10 @@ const Signup = () => {
         email: '',
         password: '',
         error: '',
-        success: false
+        redirectToReferrer: false
     });
 
-    const {name, email, password, success, error} = values;
+    const {name, email, password, error, redirectToReferrer} = values;
 
     const handleChange = userInput => event => {
         setValues({
@@ -45,16 +45,18 @@ const Signup = () => {
                     setValues({
                         ...values,
                         error: data.error,
-                        success: false
+                        redirectToReferrer: false
                     })
                 } else {
-                    setValues({
-                        ...values,
-                        name: '',
-                        email: '',
-                        password: '',
-                        error: '',
-                        success: true
+                    authenticate(data, () => {
+                        setValues({
+                            ...values,
+                            name: '',
+                            email: '',
+                            password: '',
+                            error: '',
+                            redirectToReferrer: true
+                        })
                     })
                 }
             })
@@ -78,11 +80,17 @@ const Signup = () => {
         }
     };
 
-    const showSuccess = () => (
-        <div className="has-text-success" style={{display: success ? 'block' : 'none'}}>
-            New Account Create Please <NavLink to="/signin" className="has-text-link" style={{textDecoration: 'none'}}>Signin</NavLink>
-        </div>
-    );
+    // const showSuccess = () => (
+    //     <div className="has-text-success" style={{display: success ? 'block' : 'none'}}>
+    //         New Account Create Please <NavLink to="/signin" className="has-text-link" style={{textDecoration: 'none'}}>Signin</NavLink>
+    //     </div>
+    // );
+
+    const redirectUser = () => {
+        if (redirectToReferrer) {
+            return <Redirect to="/"/>
+        }
+    };
 
 
     const signUpForm = () => (
@@ -164,9 +172,10 @@ const Signup = () => {
             className="container is-fluid is-flex is-centered"
         >
             <div className="notification has-background-white">
-                {showSuccess()}
+                {/*{showSuccess()}*/}
                 {showError()}
                 {signUpForm()}
+                {redirectUser()}
             </div>
         </Layout>
     );
