@@ -55,7 +55,7 @@ const Menu = () => {
                             </NavLink>
                         </li>
                         <li>
-                            <NavLink to="/dashboard" onClick={closeNav} activeStyle={{color: '#ff9900'}}
+                            <NavLink to="/user/dashboard" onClick={closeNav} activeStyle={{color: '#ff9900'}}
                                      exact={true}>
                                 Dashboard
                             </NavLink>
@@ -108,7 +108,7 @@ const Menu = () => {
                     <NavLink className="navbar-item" to="/" activeStyle={{color: '#ff9900'}} exact={true}>
                         Home
                     </NavLink>
-                    <NavLink className="navbar-item" to="/dashboard" activeStyle={{color: '#ff9900'}}
+                    <NavLink className="navbar-item" to="/user/dashboard" activeStyle={{color: '#ff9900'}}
                              exact={true}>
                         Dashboard
                     </NavLink>
