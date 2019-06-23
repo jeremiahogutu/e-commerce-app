@@ -30,14 +30,10 @@ const AddProduct = () => {
         description,
         price,
         categories,
-        category,
-        shipping,
         quantity,
-        photo,
         loading,
         error,
         createdProduct,
-        redirectProfile,
         formData
     } = values;
 
@@ -225,11 +221,13 @@ const AddProduct = () => {
                 </p>
             </div>
             <div className="field" style={{marginTop: '25px'}}>
-                <p className="control">
+                <p className="control is-flex" style={{justifyContent: 'space-between', alignItems: 'center'}}>
                     <button className="button is-success">
                         Create Product
                     </button>
+                    {goBack()}
                 </p>
+
             </div>
         </form>
     );
@@ -250,6 +248,12 @@ const AddProduct = () => {
        loading && (<div className="has-text-info"><h2>loading...</h2></div>)
     );
 
+    const goBack = () => (
+        <div>
+            <NavLink to="/admin/dashboard" className="has-text-link" style={{textDecoration: 'none'}}>Back to Dashboard</NavLink>
+        </div>
+    );
+
     return (
         <Layout
             title="Add a new product"
@@ -262,6 +266,7 @@ const AddProduct = () => {
                 {showError()}
                 {showSuccess()}
                 {newPostForm()}
+
             </div>
         </Layout>
     );
