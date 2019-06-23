@@ -98,7 +98,7 @@ const AddCategory = () => {
 
     const goBack = () => (
         <div style={{marginTop: '25px'}}>
-            <NavLink to="/admin/dashboard" className="has-text-warning">Back to Dashboard</NavLink>
+            <NavLink to="/admin/dashboard" className="has-text-link" style={{textDecoration: 'none'}}>Back to Dashboard</NavLink>
         </div>
     );
 
