@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import Layout from './Layout'
 import {getProducts} from "./apiMain";
+import Card from "./card";
 
 const Home = () => {
     const [productsBySell, setProductsBySell] = useState([]);
@@ -23,7 +24,7 @@ const Home = () => {
         getProducts('createdAt').then(data => {
 
             if (data.error) {
-              setError(data.error)
+                setError(data.error)
             } else {
                 setProductsByArrival(data)
             }
@@ -31,7 +32,7 @@ const Home = () => {
     };
 
     useEffect(() => {
-       loadProductsByArrival();
+        loadProductsByArrival();
         loadProductsBySell()
     }, []);
 
@@ -40,9 +41,30 @@ const Home = () => {
             title="Home Page"
             description="Node React E-commerce App"
         >
-            {JSON.stringify(productsByArrival)}
-            <div className="has-background-danger">yolo</div>
-            {JSON.stringify(productsBySell)}
+
+            <div className="column">
+                <div className="column is-11-desktop is-offset-1-desktop">
+                    <h3 className="is-size-4 has-text-weight-bold has-text-black">New Arrivals</h3>
+                </div>
+            </div>
+
+            <div className="columns container is-fluid is-flex" style={{flexWrap: 'wrap'}}>
+                {productsByArrival.map((product, i) =>
+                    (<Card key={i} product={product}/>
+                    ))}
+            </div>
+
+
+            <div className="column">
+                <div className="column is-11-desktop is-offset-1-desktop">
+                    <h3 className="is-size-4 has-text-weight-bold has-text-black">Best Sellers</h3>
+                </div>
+            </div>
+            <div className="columns container is-fluid is-flex" style={{flexWrap: 'wrap'}}>
+                {productsBySell.map((product, i) =>
+                    (<Card key={i} product={product}/>
+                    ))}
+            </div>
 
         </Layout>
     )
