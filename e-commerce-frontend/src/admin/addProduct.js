@@ -48,8 +48,34 @@ const AddProduct = () => {
         })
     }, []);
 
-    const clickSubmit = (e) => {
+    const clickSubmit = (event) => {
+        event.preventDefault();
+        setValues({
+            ...values,
+            error: '',
+            loading: true
+        });
 
+        createProduct(user._id, token, formData)
+            .then(data => {
+                if (data.error) {
+                    setValues({
+                        ...values,
+                        error: data.error
+                    })
+                } else {
+                    setValues({
+                        ...values,
+                        name: '',
+                        description: '',
+                        photo: '',
+                        price: '',
+                        quantity: '',
+                        loading: '',
+                        createProduct: data.name
+                    })
+                }
+            })
     };
 
     const handleChange = name => event => {
@@ -122,7 +148,7 @@ const AddProduct = () => {
             </div>
             <div className="field" style={{marginTop: '25px'}}>
                 <p className="control">
-                    <input
+                    <textarea
                         className="textarea"
                         onChange={handleChange('description')}
                         placeholder="Description"
@@ -155,6 +181,17 @@ const AddProduct = () => {
                     </div>
                 </div>
             </div>
+            <div className="field">
+                <label className="label">Shipping</label>
+                <div className="control">
+                    <div className="select">
+                        <select onChange={handleChange('shipping')}>
+                            <option value="0">No</option>
+                            <option value="1">Yes</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
             <div className="field" style={{marginTop: '25px'}}>
                 <p className="control has-icons-left">
                     <input
@@ -168,17 +205,6 @@ const AddProduct = () => {
       <FontAwesomeIcon icon={faPlusSquare}/>
     </span>
                 </p>
-            </div>
-            <div className="field">
-                <label className="label">Shipping</label>
-                <div className="control">
-                    <div className="select">
-                        <select onChange={handleChange('shipping')}>
-                            <option value="0">No</option>
-                            <option value="1">Yes</option>
-                        </select>
-                    </div>
-                </div>
             </div>
             <div className="field" style={{marginTop: '25px'}}>
                 <p className="control">
