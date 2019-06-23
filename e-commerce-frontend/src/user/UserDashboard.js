@@ -38,13 +38,13 @@ const Dashboard = () => {
                      style={{border: '1px solid #dbdbdb', borderTop: 0, padding: 0}}>
                     <div className="list" style={{borderRadius: 0}}>
                         <li className="list-item">
-                            {name}
+                            Name: {name}
                         </li>
                         <li className="list-item">
-                            {email}
+                            Email: {email}
                         </li>
                         <li className="list-item">
-                            {role === 1 ? 'Admin' : 'Registered User'}
+                            Role: {role === 1 ? 'Admin' : 'Registered User'}
                         </li>
                     </div>
                 </div>
