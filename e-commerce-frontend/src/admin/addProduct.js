@@ -97,7 +97,7 @@ const AddProduct = () => {
                         className="input"
                         onChange={handleChange}
                         type="text"
-                        placeholder="New Category"
+                        placeholder="New Product"
                         value={name}
                         autoFocus
                         required
@@ -110,7 +110,7 @@ const AddProduct = () => {
             <div className="field" style={{marginTop: '25px'}}>
                 <p className="control">
                     <button className="button is-success">
-                        Create Category
+                        Create Product
                     </button>
                 </p>
             </div>
