@@ -33,17 +33,34 @@ const Shop = () => {
 
 
     const handleFilters = (filters, filterBy) => {
+        // console.log('Shop', filters, filterBy)
         const newFilters = {...myFilters};
         newFilters.filters[filterBy] = filters;
-        setMyFilters(newFilters);
 
-        // console.log('Shop', filters, filterBy)
+        if (filterBy === "price") {
+            let priceValues = handlePrice(filters);
+            newFilters.filters[filterBy] = priceValues;
+        }
+
+        setMyFilters(newFilters);
+    };
+
+    const handlePrice = value => {
+        const data = prices;
+        let array = [];
+
+        for(let key in data) {
+            if(data[key]._id === parseInt(value)) {
+                array = data[key].array
+            }
+        }
+        return array;
     };
 
     return (
         <Layout
-            title="Home Page"
-            description="Node React E-commerce App"
+            title="Shop"
+            description="Search and find books of your choice"
         >
 
             <div className="container is-fluid">
