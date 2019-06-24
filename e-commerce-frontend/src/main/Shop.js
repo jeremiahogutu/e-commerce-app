@@ -3,6 +3,8 @@ import Layout from "./Layout";
 import Card from "./card";
 import {getCategories} from "../admin/apiAdmin";
 import CheckBox from "./CheckBox";
+import RadioBox from "./RadioBox";
+import {prices} from "./FixedPrices";
 
 const Shop = () => {
     const [myFilters, setMyFilters] = useState({
@@ -55,6 +57,13 @@ const Shop = () => {
                                     handleFilters={filters => handleFilters(filters, 'category')}
                                 />
                             </ul>
+                            <h4 className="is-size-4 has-text-weight-semibold has-text-black">Filter by price range</h4>
+                            <div>
+                                <RadioBox
+                                    prices={prices}
+                                    handleFilters={filters => handleFilters(filters, 'price')}
+                                />
+                            </div>
                         </div>
                         <div className="column is-three-quarters">{JSON.stringify(myFilters)}</div>
                     </div>
