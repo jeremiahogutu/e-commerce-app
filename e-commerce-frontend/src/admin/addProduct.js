@@ -3,7 +3,7 @@ import {isAuthenticated} from "../auth";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faCloudUploadAlt, faPlusSquare, faDollarSign} from "@fortawesome/free-solid-svg-icons";
 import Layout from "../main/Layout";
-import {createProduct} from "./apiAdmin";
+import {createProduct, getCategories} from "./apiAdmin";
 import {NavLink} from "react-router-dom";
 
 const AddProduct = () => {
@@ -30,22 +30,33 @@ const AddProduct = () => {
         description,
         price,
         categories,
-        category,
-        shipping,
         quantity,
-        photo,
         loading,
         error,
         createdProduct,
-        redirectProfile,
         formData
     } = values;
 
-    useEffect(() => {
-        setValues({
-            ...values,
-            formData: new FormData()
+    // load categories and set form data
+    const init = () => {
+        getCategories().then(data => {
+            if (data.error) {
+                setValues({
+                    ...values,
+                    error: data.error
+                })
+            } else {
+                setValues({
+                    ...values,
+                    categories: data,
+                    formData: new FormData()
+                })
+            }
         })
+    };
+
+    useEffect(() => {
+       init()
     }, []);
 
     const clickSubmit = (event) => {
@@ -72,7 +83,7 @@ const AddProduct = () => {
                         price: '',
                         quantity: '',
                         loading: '',
-                        createProduct: data.name
+                        createdProduct: data.name
                     })
                 }
             })
@@ -175,8 +186,10 @@ const AddProduct = () => {
                 <div className="control">
                     <div className="select">
                         <select onChange={handleChange('category')}>
-                            <option value="5d02e6a455092e25d7faf084">Node</option>
-                            <option value="5d058cd663b50a39855e090b">Python</option>
+                            <option>Please select</option>
+                            {categories && categories.map((category, i) => (
+                                <option key={i} value={category._id}>{category.name}</option>
+                            ))}
                         </select>
                     </div>
                 </div>
@@ -186,6 +199,7 @@ const AddProduct = () => {
                 <div className="control">
                     <div className="select">
                         <select onChange={handleChange('shipping')}>
+                            <option>Please select</option>
                             <option value="0">No</option>
                             <option value="1">Yes</option>
                         </select>
@@ -207,13 +221,37 @@ const AddProduct = () => {
                 </p>
             </div>
             <div className="field" style={{marginTop: '25px'}}>
-                <p className="control">
+                <p className="control is-flex" style={{justifyContent: 'space-between', alignItems: 'center'}}>
                     <button className="button is-success">
                         Create Product
                     </button>
+                    {goBack()}
                 </p>
+
             </div>
         </form>
+    );
+
+    const showError = () => (
+        <div className="has-text-danger" style={{display: error ? '' : 'none'}}>
+            {error}
+        </div>
+    );
+
+    const showSuccess = () => (
+        <div className="has-text-success" style={{display: createdProduct ? '' : 'none'}}>
+            <h2 className="is-capitalized">{`${createdProduct}`} has been created!</h2>
+        </div>
+    );
+
+    const showLoading = () => (
+       loading && (<div className="has-text-info"><h2>loading...</h2></div>)
+    );
+
+    const goBack = () => (
+        <div>
+            <NavLink to="/admin/dashboard" className="has-text-link" style={{textDecoration: 'none'}}>Back to Dashboard</NavLink>
+        </div>
     );
 
     return (
@@ -224,7 +262,11 @@ const AddProduct = () => {
         >
             <div className="notification has-background-white">
                 {/*{JSON.stringify(values)}*/}
+                {showLoading()}
+                {showError()}
+                {showSuccess()}
                 {newPostForm()}
+
             </div>
         </Layout>
     );
