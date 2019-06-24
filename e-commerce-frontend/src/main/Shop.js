@@ -50,7 +50,10 @@ const Shop = () => {
                         <div className="column">
                             <h4 className="is-size-4 has-text-weight-semibold has-text-black">Filter by categories</h4>
                             <ul>
-                                <CheckBox categories={categories} handleFilters={filters => handleFilters(filters, 'category')}/>
+                                <CheckBox
+                                    categories={categories}
+                                    handleFilters={filters => handleFilters(filters, 'category')}
+                                />
                             </ul>
                         </div>
                         <div className="column is-three-quarters">{JSON.stringify(myFilters)}</div>
