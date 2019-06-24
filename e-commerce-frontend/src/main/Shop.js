@@ -5,6 +5,12 @@ import {getCategories} from "../admin/apiAdmin";
 import CheckBox from "./CheckBox";
 
 const Shop = () => {
+    const [myFilters, setMyFilters] = useState({
+        filters: {
+            category: [],
+            price: []
+        }
+    });
     const [categories, setCategories] = useState([]);
     const [error, setError] = useState([]);
 
@@ -24,6 +30,14 @@ const Shop = () => {
     }, []);
 
 
+    const handleFilters = (filters, filterBy) => {
+        const newFilters = {...myFilters};
+        newFilters.filters[filterBy] = filters;
+        setMyFilters(newFilters);
+
+        // console.log('Shop', filters, filterBy)
+    };
+
     return (
         <Layout
             title="Home Page"
@@ -36,10 +50,10 @@ const Shop = () => {
                         <div className="column">
                             <h4 className="is-size-4 has-text-weight-semibold has-text-black">Filter by categories</h4>
                             <ul>
-                                <CheckBox categories={categories}/>
+                                <CheckBox categories={categories} handleFilters={filters => handleFilters(filters, 'category')}/>
                             </ul>
                         </div>
-                        <div className="column is-three-quarters">is-three-quarters</div>
+                        <div className="column is-three-quarters">{JSON.stringify(myFilters)}</div>
                     </div>
                 </div>
             </div>
