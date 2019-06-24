@@ -54,6 +54,12 @@ const Menu = () => {
                                 Home
                             </NavLink>
                         </li>
+                        <li>
+                            <NavLink to="/shop" onClick={closeNav} activeStyle={{color: '#ff9900'}}
+                                     exact={true}>
+                                Shop
+                            </NavLink>
+                        </li>
                         {isAuthenticated() && isAuthenticated().user.role === 0 && (
                             <li>
                                 <NavLink to="/user/dashboard" onClick={closeNav} activeStyle={{color: '#ff9900'}}
@@ -117,6 +123,9 @@ const Menu = () => {
                 <div className="navbar-start">
                     <NavLink className="navbar-item" to="/" activeStyle={{color: '#ff9900'}} exact={true}>
                         Home
+                    </NavLink>
+                    <NavLink className="navbar-item" to="/shop" activeStyle={{color: '#ff9900'}} exact={true}>
+                        Shop
                     </NavLink>
                     {isAuthenticated() && isAuthenticated().user.role === 0 && (
                         <NavLink className="navbar-item" to="/user/dashboard" activeStyle={{color: '#ff9900'}}

@@ -74,10 +74,10 @@ const Dashboard = () => {
         <Layout
             title="Dashboard"
             description={`Hey ${name}!`}
-            className="is-flex"
+            className="is-flex hero-body"
         >
-            <article className="message has-background-white"
-                     style={{marginTop: '15px', padding: '25px', flexGrow: 1}}>
+            <article className="container message has-background-white"
+                     style={{marginTop: '15px', flexGrow: 1}}>
                 <div className="columns">
                     <div className="column">
                         {userLinks()}

@@ -32,7 +32,7 @@ const AdminDashboard = () => {
         return (
             <Fragment>
                 <div className="message-header has-background-grey-lighter">
-                    <p className="has-text-black is-size-4">User Information</p>
+                    <p className="has-text-black is-size-4">Admin Information</p>
                 </div>
                 <div className="message-body has-background-white"
                      style={{border: '1px solid #dbdbdb', borderTop: 0, padding: 0}}>
@@ -56,10 +56,10 @@ const AdminDashboard = () => {
         <Layout
             title="Dashboard"
             description={`Hey ${name}!`}
-            className="is-flex"
+            className="is-flex hero-body"
         >
-            <article className="message has-background-white"
-                     style={{marginTop: '15px', padding: '25px', flexGrow: 1}}>
+            <article className="container message has-background-white"
+                     style={{marginTop: '15px', flexGrow: 1}}>
                 <div className="columns">
                     <div className="column">
                         {adminLinks()}
