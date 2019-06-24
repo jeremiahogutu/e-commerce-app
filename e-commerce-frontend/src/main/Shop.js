@@ -2,6 +2,7 @@ import React, {useState, useEffect} from 'react';
 import Layout from "./Layout";
 import Card from "./card";
 import {getCategories} from "../admin/apiAdmin";
+import CheckBox from "./CheckBox";
 
 const Shop = () => {
     const [categories, setCategories] = useState([]);
@@ -28,7 +29,22 @@ const Shop = () => {
             title="Home Page"
             description="Node React E-commerce App"
         >
-            {JSON.stringify(categories)}
+
+            <div className="container is-fluid">
+                <div className="notification has-background-white">
+                    <div className="columns">
+                        <div className="column">
+                            <h4 className="is-size-4 has-text-weight-semibold has-text-black">Filter by categories</h4>
+                            <ul>
+                                <CheckBox categories={categories}/>
+                            </ul>
+                        </div>
+                        <div className="column is-three-quarters">is-three-quarters</div>
+                    </div>
+                </div>
+            </div>
+
+
         </Layout>
     );
 };
