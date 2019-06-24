@@ -3,6 +3,8 @@ import Layout from "./Layout";
 import Card from "./card";
 import {getCategories} from "../admin/apiAdmin";
 import CheckBox from "./CheckBox";
+import RadioBox from "./RadioBox";
+import {prices} from "./FixedPrices";
 
 const Shop = () => {
     const [myFilters, setMyFilters] = useState({
@@ -31,17 +33,34 @@ const Shop = () => {
 
 
     const handleFilters = (filters, filterBy) => {
+        // console.log('Shop', filters, filterBy)
         const newFilters = {...myFilters};
         newFilters.filters[filterBy] = filters;
-        setMyFilters(newFilters);
 
-        // console.log('Shop', filters, filterBy)
+        if (filterBy === "price") {
+            let priceValues = handlePrice(filters);
+            newFilters.filters[filterBy] = priceValues;
+        }
+
+        setMyFilters(newFilters);
+    };
+
+    const handlePrice = value => {
+        const data = prices;
+        let array = [];
+
+        for(let key in data) {
+            if(data[key]._id === parseInt(value)) {
+                array = data[key].array
+            }
+        }
+        return array;
     };
 
     return (
         <Layout
-            title="Home Page"
-            description="Node React E-commerce App"
+            title="Shop"
+            description="Search and find books of your choice"
         >
 
             <div className="container is-fluid">
@@ -50,8 +69,18 @@ const Shop = () => {
                         <div className="column">
                             <h4 className="is-size-4 has-text-weight-semibold has-text-black">Filter by categories</h4>
                             <ul>
-                                <CheckBox categories={categories} handleFilters={filters => handleFilters(filters, 'category')}/>
+                                <CheckBox
+                                    categories={categories}
+                                    handleFilters={filters => handleFilters(filters, 'category')}
+                                />
                             </ul>
+                            <h4 className="is-size-4 has-text-weight-semibold has-text-black">Filter by price range</h4>
+                            <div>
+                                <RadioBox
+                                    prices={prices}
+                                    handleFilters={filters => handleFilters(filters, 'price')}
+                                />
+                            </div>
                         </div>
                         <div className="column is-three-quarters">{JSON.stringify(myFilters)}</div>
                     </div>
