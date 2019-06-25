@@ -5,6 +5,7 @@ import {getCategories} from "../admin/apiAdmin";
 import CheckBox from "./CheckBox";
 import RadioBox from "./RadioBox";
 import {prices} from "./FixedPrices";
+import {getFilteredProducts} from "./apiMain";
 
 const Shop = () => {
     const [myFilters, setMyFilters] = useState({
@@ -14,7 +15,10 @@ const Shop = () => {
         }
     });
     const [categories, setCategories] = useState([]);
-    const [error, setError] = useState([]);
+    const [error, setError] = useState(false);
+    const [limit, setLimit] = useState(6);
+    const [skip, setSkip] = useState(0);
+    const [filteredResults, setFilteredResults] = useState(0);
 
     // load categories and set form data
     const init = () => {
@@ -27,10 +31,22 @@ const Shop = () => {
         })
     };
 
-    useEffect(() => {
-        init()
-    }, []);
+    const loadFilterResults = (newFilters) => {
+        // console.log(newFilters)
+        getFilteredProducts(skip, limit, newFilters).then(data => {
+            if (data.error) {
+                setError(data,error)
+            } else {
+                setFilteredResults(data)
+            }
+        })
+    };
 
+
+    useEffect(() => {
+        init();
+        loadFilterResults(skip, limit, myFilters.filters)
+    }, []);
 
     const handleFilters = (filters, filterBy) => {
         // console.log('Shop', filters, filterBy)
@@ -42,6 +58,7 @@ const Shop = () => {
             newFilters.filters[filterBy] = priceValues;
         }
 
+        loadFilterResults(myFilters.filters);
         setMyFilters(newFilters);
     };
 
@@ -82,7 +99,7 @@ const Shop = () => {
                                 />
                             </div>
                         </div>
-                        <div className="column is-three-quarters">{JSON.stringify(myFilters)}</div>
+                        <div className="column is-three-quarters">{JSON.stringify(filteredResults)}</div>
                     </div>
                 </div>
             </div>
