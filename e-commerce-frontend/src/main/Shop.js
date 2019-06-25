@@ -18,7 +18,7 @@ const Shop = () => {
     const [error, setError] = useState(false);
     const [limit, setLimit] = useState(6);
     const [skip, setSkip] = useState(0);
-    const [filteredResults, setFilteredResults] = useState(0);
+    const [filteredResults, setFilteredResults] = useState([]);
 
     // load categories and set form data
     const init = () => {
@@ -64,14 +64,14 @@ const Shop = () => {
 
     const handlePrice = value => {
         const data = prices;
-        let array = [];
+        let priceArray = [];
 
         for(let key in data) {
             if(data[key]._id === parseInt(value)) {
-                array = data[key].array
+                priceArray = data[key].array
             }
         }
-        return array;
+        return priceArray;
     };
 
     return (
@@ -100,13 +100,12 @@ const Shop = () => {
                             </div>
                         </div>
                         <div className="column is-three-quarters">
-                            <h2>Products</h2>
-                            {JSON.stringify(filteredResults)}
-                            {filteredResults.map((product, i) => (
-                                <div key={i}>
-                                    <Card product={product}/>
-                                </div>
-                            ))}
+                            <h3 className="is-size-4 has-text-weight-bold has-text-black has-text-centered">Products</h3>
+                            <div className="columns container is-fluid is-flex" style={{flexWrap: 'wrap'}}>
+                                {filteredResults.map((product, i) =>
+                                    (<Card key={i} product={product}/>
+                                    ))}
+                            </div>
                         </div>
                     </div>
                 </div>

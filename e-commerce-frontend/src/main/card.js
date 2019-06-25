@@ -15,7 +15,7 @@ const Card = ({product}) => {
                     <div className="media">
                         <div className="media-content">
                             <p className="title is-4">{product.name}</p>
-                            <p className="subtitle is-6">{product.description}</p>
+                            <p className="subtitle is-6">{product.description.substring(0, 100)}</p>
                         </div>
                     </div>
 
