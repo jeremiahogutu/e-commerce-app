@@ -31,13 +31,13 @@ const Shop = () => {
         })
     };
 
-    const loadFilterResults = (newFilters) => {
+    const loadFilterResults = newFilters => {
         // console.log(newFilters)
         getFilteredProducts(skip, limit, newFilters).then(data => {
             if (data.error) {
-                setError(data,error)
+                setError(data.error)
             } else {
-                setFilteredResults(data)
+                setFilteredResults(data.data)
             }
         })
     };
@@ -99,7 +99,15 @@ const Shop = () => {
                                 />
                             </div>
                         </div>
-                        <div className="column is-three-quarters">{JSON.stringify(filteredResults)}</div>
+                        <div className="column is-three-quarters">
+                            <h2>Products</h2>
+                            {JSON.stringify(filteredResults)}
+                            {filteredResults.map((product, i) => (
+                                <div key={i}>
+                                    <Card product={product}/>
+                                </div>
+                            ))}
+                        </div>
                     </div>
                 </div>
             </div>
