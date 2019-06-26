@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import {getCategories} from "./apiMain";
+import {getCategories, list} from "./apiMain";
 
 const Search = () => {
     const [data, setData] = useState({
@@ -26,12 +26,36 @@ const Search = () => {
         loadCategories()
     }, []);
 
-    const searchSubmit = () => {
-
+    const searchData = () => {
+        if (search) {
+            list({
+                search: search || undefined,
+                category: category
+            }).then(response => {
+                if (response.error) {
+                    console.log(response.error)
+                } else {
+                    setData({
+                        ...data,
+                        results: response,
+                        searched: true
+                    })
+                }
+            })
+        }
     };
 
-    const handleChange = () => {
+    const searchSubmit = (e) => {
+        e.preventDefault();
+        searchData()
+    };
 
+    const handleChange = name => event => {
+        setData({
+            ...data,
+            [name]: event.target.value,
+            searched: false
+        })
     };
 
     const searchForm = () => (
@@ -41,7 +65,7 @@ const Search = () => {
                     <div className="field-body">
                         <div className="field is-expanded">
                             <div className="field has-addons">
-                                <p className="control">
+                                <div className="control">
                                     <div className="select is-fullwidth">
                                         <select onChange={handleChange("category")}>
                                             <option value="All">Pick Category</option>
@@ -49,7 +73,7 @@ const Search = () => {
                                             <option>Sales</option>
                                         </select>
                                     </div>
-                                </p>
+                                </div>
                                 <p className="control is-expanded">
                                     <input
                                         className="input"
@@ -74,7 +98,7 @@ const Search = () => {
     return (
         <div className="column">
             <div className="column is-11-desktop is-offset-1-desktop is-flex" style={{justifyContent: 'center'}}>
-                <h3 className="is-size-4 has-text-weight-bold has-text-black">{searchForm()}</h3>
+                <h3 className="is-size-4 has-text-weight-bold has-text-black">{searchForm()} {JSON.stringify(results)}</h3>
             </div>
         </div>
     );
