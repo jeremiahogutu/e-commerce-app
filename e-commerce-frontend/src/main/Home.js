@@ -2,6 +2,7 @@ import React, {useState, useEffect} from 'react';
 import Layout from './Layout'
 import {getProducts} from "./apiMain";
 import Card from "./card";
+import Search from "./Search";
 
 const Home = () => {
     const [productsBySell, setProductsBySell] = useState([]);
@@ -41,7 +42,7 @@ const Home = () => {
             title="Home"
             description="Node React E-commerce App"
         >
-
+            <Search/>
             <div className="column">
                 <div className="column is-11-desktop is-offset-1-desktop">
                     <h3 className="is-size-4 has-text-weight-bold has-text-black">New Arrivals</h3>
