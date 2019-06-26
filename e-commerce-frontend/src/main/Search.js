@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import {getCategories, list} from "./apiMain";
+import Card from "./card";
 
 const Search = () => {
     const [data, setData] = useState({
@@ -58,6 +59,16 @@ const Search = () => {
         })
     };
 
+    const searchedProducts = (results = []) => {
+        return (
+            <div>
+                {results.map((product, i) => (
+                    <Card key={i} product={product}/>
+                ))}
+            </div>
+        )
+    };
+
     const searchForm = () => (
         <form onSubmit={searchSubmit}>
             <div className="field is-grouped" style={{flexWrap: 'wrap'}}>
@@ -98,7 +109,10 @@ const Search = () => {
     return (
         <div className="column">
             <div className="column is-11-desktop is-offset-1-desktop is-flex" style={{justifyContent: 'center'}}>
-                <h3 className="is-size-4 has-text-weight-bold has-text-black">{searchForm()} {JSON.stringify(results)}</h3>
+                <h3 className="is-size-4 has-text-weight-bold has-text-black">{searchForm()}</h3>
+            </div>
+            <div>
+                {searchedProducts(results)}
             </div>
         </div>
     );
