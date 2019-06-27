@@ -1,5 +1,7 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, Fragment} from 'react';
 import {getCategories, list} from "./apiMain";
+import Card from "./card";
+import Layout from "./Layout";
 
 const Search = () => {
     const [data, setData] = useState({
@@ -58,6 +60,34 @@ const Search = () => {
         })
     };
 
+    const searchMessage = (searched, results) => {
+        if (searched && results.length > 0) {
+            return `Found ${results.length} products`
+        }
+        if (searched && results.length < 1) {
+            return `No products found`
+        }
+    }
+
+    const searchedProducts = (results = []) => {
+        return (
+            <Fragment>
+                <div className="column">
+                    <div className="column is-11-desktop is-offset-1-desktop">
+                        <h3 className="is-size-4 has-text-weight-bold has-text-black">{searchMessage(searched, results)}</h3>
+                    </div>
+                </div>
+
+                <div className="columns container is-fluid is-flex" style={{flexWrap: 'wrap'}}>
+
+                    {results.map((product, i) => (
+                        <Card key={i} product={product}/>
+                    ))}
+                </div>
+            </Fragment>
+        )
+    };
+
     const searchForm = () => (
         <form onSubmit={searchSubmit}>
             <div className="field is-grouped" style={{flexWrap: 'wrap'}}>
@@ -97,8 +127,11 @@ const Search = () => {
 
     return (
         <div className="column">
-            <div className="column is-11-desktop is-offset-1-desktop is-flex" style={{justifyContent: 'center'}}>
-                <h3 className="is-size-4 has-text-weight-bold has-text-black">{searchForm()} {JSON.stringify(results)}</h3>
+            <div className="is-flex" style={{justifyContent: 'center'}}>
+                <h3 className="is-size-4 has-text-weight-bold has-text-black" style={{paddingTop: '25px'}}>{searchForm()}</h3>
+            </div>
+            <div>
+                {searchedProducts(results)}
             </div>
         </div>
     );
