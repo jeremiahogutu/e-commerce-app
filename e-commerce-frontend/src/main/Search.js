@@ -60,12 +60,21 @@ const Search = () => {
         })
     };
 
+    const searchMessage = (searched, results) => {
+        if (searched && results.length > 0) {
+            return `Found ${results.length} products`
+        }
+        if (searched && results.length < 1) {
+            return `No products found`
+        }
+    }
+
     const searchedProducts = (results = []) => {
         return (
             <Fragment>
                 <div className="column">
                     <div className="column is-11-desktop is-offset-1-desktop">
-                        {results.length > 0 && <h3 className="is-size-4 has-text-weight-bold has-text-black">Search results</h3>}
+                        <h3 className="is-size-4 has-text-weight-bold has-text-black">{searchMessage(searched, results)}</h3>
                     </div>
                 </div>
 
