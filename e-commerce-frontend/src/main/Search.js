@@ -1,6 +1,7 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, Fragment} from 'react';
 import {getCategories, list} from "./apiMain";
 import Card from "./card";
+import Layout from "./Layout";
 
 const Search = () => {
     const [data, setData] = useState({
@@ -61,11 +62,20 @@ const Search = () => {
 
     const searchedProducts = (results = []) => {
         return (
-            <div>
-                {results.map((product, i) => (
-                    <Card key={i} product={product}/>
-                ))}
-            </div>
+            <Fragment>
+                <div className="column">
+                    <div className="column is-11-desktop is-offset-1-desktop">
+                        {results.length > 0 && <h3 className="is-size-4 has-text-weight-bold has-text-black">Search results</h3>}
+                    </div>
+                </div>
+
+                <div className="columns container is-fluid is-flex" style={{flexWrap: 'wrap'}}>
+
+                    {results.map((product, i) => (
+                        <Card key={i} product={product}/>
+                    ))}
+                </div>
+            </Fragment>
         )
     };
 
@@ -108,8 +118,8 @@ const Search = () => {
 
     return (
         <div className="column">
-            <div className="column is-11-desktop is-offset-1-desktop is-flex" style={{justifyContent: 'center'}}>
-                <h3 className="is-size-4 has-text-weight-bold has-text-black">{searchForm()}</h3>
+            <div className="is-flex" style={{justifyContent: 'center'}}>
+                <h3 className="is-size-4 has-text-weight-bold has-text-black" style={{paddingTop: '25px'}}>{searchForm()}</h3>
             </div>
             <div>
                 {searchedProducts(results)}

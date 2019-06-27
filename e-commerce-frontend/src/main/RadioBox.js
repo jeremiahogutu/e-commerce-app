@@ -16,6 +16,7 @@ const RadioBox = ({prices, handleFilters}) => {
                     type="radio"
                     value={`${price._id}`}
                     name={price}
+                    style={{marginRight: '5px'}}
                 />
                 {price.name}
             </label>

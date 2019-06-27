@@ -6,6 +6,7 @@ import CheckBox from "./CheckBox";
 import RadioBox from "./RadioBox";
 import {prices} from "./FixedPrices";
 import {getFilteredProducts} from "./apiMain";
+import '../App.css'
 
 const Shop = () => {
     const [myFilters, setMyFilters] = useState({
@@ -105,10 +106,10 @@ const Shop = () => {
             description="Search and find books of your choice"
         >
 
-            <div className="container is-fluid">
+            <div className="container is-fluid" >
                 <div className="notification has-background-white">
                     <div className="columns">
-                        <div className="column">
+                        <div className="column" id='shop-filters'>
                             <h4 className="is-size-4 has-text-weight-semibold has-text-black">Filter by categories</h4>
                             <ul>
                                 <CheckBox
