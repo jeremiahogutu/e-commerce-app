@@ -28,6 +28,7 @@ const CheckBox = ({categories, handleFilters }) => {
                     onChange={handleToggle(category._id)}
                     type="checkbox"
                     value={checked.indexOf(category._id === 1)}
+                    style={{marginRight: '5px'}}
                 />
                 {category.name}
             </label>
