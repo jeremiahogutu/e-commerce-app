@@ -15,7 +15,6 @@ const Card = ({product}) => {
                             <p className="subtitle is-6">{product.description.substring(0, 100)}</p>
                         </div>
                     </div>
-
                     <div className="content">
                         ${product.price}
                     </div>
