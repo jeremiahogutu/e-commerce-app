@@ -1,4 +1,5 @@
 import React from 'react';
+import {Link} from "react-router-dom";
 import ShowImage from "./ShowImage";
 
 const Card = ({product}) => {
@@ -19,7 +20,7 @@ const Card = ({product}) => {
                         ${product.price}
                     </div>
                     <div className="button-container is-flex" style={{justifyContent: 'space-between', flexWrap: 'wrap'}}>
-                        <button className="button is-primary is-outlined" style={{marginTop: '10px'}}>View Product</button>
+                        <Link to={`/product/${product._id}`} className="button is-primary is-outlined" style={{marginTop: '10px'}}>View Product</Link>
                         <button className="button is-warning is-outlined" style={{marginTop: '10px'}}>Add Product</button>
                     </div>
                 </div>
