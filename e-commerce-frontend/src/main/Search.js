@@ -72,16 +72,23 @@ const Search = () => {
     const searchedProducts = (results = []) => {
         return (
             <Fragment>
-                <div className="column">
-                    <div className="column is-11-desktop is-offset-1-desktop">
-                        <h3 className="is-size-4 has-text-weight-bold has-text-black">{searchMessage(searched, results)}</h3>
+                <div className="container is-fluid">
+                    <div className="notification has-background-white">
+                        <div className="column">
+                            <div className="column is-12-desktop">
+                                <h3 className="is-size-4 has-text-weight-bold has-text-black">{searchMessage(searched, results)}</h3>
+                            </div>
+                        </div>
                     </div>
                 </div>
-
                 <div className="columns container is-fluid is-flex" style={{flexWrap: 'wrap'}}>
 
                     {results.map((product, i) => (
-                        <Card key={i} product={product}/>
+                        <div className='column is-3 is-flex' style={{justifyContent: 'center'}}>
+                            <div className="card" style={{width: '350px', marginTop: '25px'}}>
+                                <Card key={i} product={product}/>
+                            </div>
+                        </div>
                     ))}
                 </div>
             </Fragment>
@@ -99,7 +106,8 @@ const Search = () => {
                                     <div className="select is-fullwidth">
                                         <select onChange={handleChange("category")}>
                                             <option value="All">Pick Category</option>
-                                            {categories.map((category, i) => (<option key={i} value={category._id}>{category.name}</option>))}
+                                            {categories.map((category, i) => (
+                                                <option key={i} value={category._id}>{category.name}</option>))}
                                             <option>Sales</option>
                                         </select>
                                     </div>
@@ -128,7 +136,8 @@ const Search = () => {
     return (
         <div className="column">
             <div className="is-flex" style={{justifyContent: 'center'}}>
-                <h3 className="is-size-4 has-text-weight-bold has-text-black" style={{paddingTop: '25px'}}>{searchForm()}</h3>
+                <h3 className="is-size-4 has-text-weight-bold has-text-black"
+                    style={{paddingTop: '25px'}}>{searchForm()}</h3>
             </div>
             <div>
                 {searchedProducts(results)}

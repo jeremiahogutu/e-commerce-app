@@ -43,27 +43,45 @@ const Home = () => {
             description="Node React E-commerce App"
         >
             <Search/>
-            <div className="column">
-                <div className="column is-11-desktop is-offset-1-desktop">
-                    <h3 className="is-size-4 has-text-weight-bold has-text-black">New Arrivals</h3>
+            <div className="container is-fluid">
+                <div className="notification has-background-white">
+                    <div className="column">
+                        <div className="column is-12-desktop">
+                            <h3 className="is-size-4 has-text-weight-bold has-text-black">New Arrivals</h3>
+                        </div>
+                    </div>
                 </div>
             </div>
 
             <div className="columns container is-fluid is-flex" style={{flexWrap: 'wrap'}}>
                 {productsByArrival.map((product, i) =>
-                    (<Card key={i} product={product}/>
+                    (
+                        <div className='column is-3 is-flex' style={{justifyContent: 'center'}}>
+                            <div className="card" style={{width: '350px', marginTop: '25px'}}>
+                                <Card key={i} product={product}/>
+                            </div>
+                        </div>
                     ))}
             </div>
 
 
-            <div className="column">
-                <div className="column is-11-desktop is-offset-1-desktop">
-                    <h3 className="is-size-4 has-text-weight-bold has-text-black">Best Sellers</h3>
+            <div className="container is-fluid">
+                <div className="notification has-background-white">
+                    <div className="column">
+                        <div className="column is-12-desktop">
+                            <h3 className="is-size-4 has-text-weight-bold has-text-black">Best Sellers</h3>
+                        </div>
+                    </div>
                 </div>
             </div>
             <div className="columns container is-fluid is-flex" style={{flexWrap: 'wrap'}}>
                 {productsBySell.map((product, i) =>
-                    (<Card key={i} product={product}/>
+                    (
+                        <div className='column is-3 is-flex' style={{justifyContent: 'center'}}>
+                            <div className="card" style={{width: '350px', marginTop: '25px'}}>
+                                <Card key={i} product={product}/>
+                            </div>
+                        </div>
                     ))}
             </div>
 

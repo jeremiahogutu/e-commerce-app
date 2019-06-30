@@ -13,7 +13,7 @@ const Layout = ({
             <section className="hero is-light">
                 <div className="hero-body">
                     <div className="container">
-                        <h1 className="title">
+                        <h1 className="title is-capitalized">
                             {title}
                         </h1>
                         <h2 className="subtitle">
