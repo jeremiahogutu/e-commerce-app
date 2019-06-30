@@ -54,6 +54,16 @@ export const read = (productId) => {
         .catch(err => console.log(err))
 };
 
+export const listRelated = productId => {
+    return fetch(`${API}/products/related/${productId}`, {
+        method: 'GET'
+    })
+        .then(response => {
+            return response.json();
+        })
+        .catch(err => console.log(err))
+};
+
 export const list = params => {
     const query = queryString.stringify(params);
     console.log("query", query);

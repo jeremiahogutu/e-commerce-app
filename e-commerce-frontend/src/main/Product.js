@@ -1,11 +1,11 @@
 import React, {useState, useEffect} from 'react';
 import Layout from "./Layout";
-import {read} from "./apiMain";
+import {read, listRelated} from "./apiMain";
 import Card from "./card";
 
 const Product = (props) => {
     const [product, setProduct] = useState({});
-
+    const [relatedProduct, setRelatedProduct] = useState([]);
     const [error, setError] = useState(false);
 
     const loadSingleProduct = productId => {
@@ -13,15 +13,23 @@ const Product = (props) => {
             if (data.error) {
                 setError(data.error)
             } else {
-                setProduct(data)
+                setProduct(data);
+                // fetch related products
+                listRelated(data._id).then(data => {
+                    if (data.error) {
+                        setError(data.error)
+                    } else {
+                        setRelatedProduct(data)
+                    }
+                })
             }
         })
     };
 
     useEffect(() => {
-        const productId = props.match.params.productId
+        const productId = props.match.params.productId;
         loadSingleProduct(productId)
-    }, []);
+    }, [props]);
 
     return (
         <Layout
@@ -33,11 +41,21 @@ const Product = (props) => {
             }
         >
             <div>{product && product.description &&
-            <div className='column is-12 is-flex'>
-                <div className="card" style={{width: '480px', marginTop: '25px'}}>
-                    <Card product={product} showViewProductButton={false}/>
+            <div className='columns is-flex'>
+                <div className="column is-three-quarters-desktop">
+                    <div className="card" style={{width: '600px', margin: '60px auto 0'}}>
+                        <Card product={product} showViewProductButton={false}/>
+                    </div>
                 </div>
-            </div> }</div>
+                <div className="column is-one-quarter-desktop">
+                    <h4 className="is-size-4 has-text-weight-bold has-text-black">Related Products</h4>
+                    {relatedProduct.map((product, i) => (
+                        <div className="card" style={{width: '300px', marginTop: '25px'}}>
+                            <Card key={i} product={product}/>
+                        </div>
+                    ))}
+                </div>
+            </div>}</div>
         </Layout>
     );
 };
