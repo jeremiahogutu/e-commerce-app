@@ -1,17 +1,16 @@
 import React, {Fragment, useState} from 'react';
 import {Link} from "react-router-dom";
 import ShowImage from "./ShowImage";
-import {addItem, updateItem } from "./cartHelpers";
+import {addItem, updateItem, removeItem } from "./cartHelpers";
 import {Redirect} from "react-router-dom";
 import moment from 'moment'
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faDollarSign} from "@fortawesome/free-solid-svg-icons";
 
 const Card = ({
                   product,
                   showViewProductButton = true,
                   showAddToCartButton = true,
-                  cartUpdate = false
+                  cartUpdate = false,
+                  showRemoveProductButton = false
               }) => {
     const [redirect, setRedirect] = useState(false);
     const [count, setCount] = useState(product.count);
@@ -21,7 +20,7 @@ const Card = ({
             showViewProductButton && (
                 <button className="button is-primary is-outlined"
                         style={{marginTop: '10px'}}>
-                    View Product
+                    View Comic Book
                 </button>
             )
         )
@@ -39,11 +38,19 @@ const Card = ({
         }
     };
 
-    const showCartButton = showAddToCartButton => {
+    const showAddToCart = showAddToCartButton => {
         return (
             showAddToCartButton && (
                 <button onClick={addToCart} className="button is-warning is-outlined" style={{marginTop: '10px'}}>Add To
                     Cart</button>)
+        )
+    };
+
+    const showRemoveButton = showRemoveProductButton => {
+        return (
+            showRemoveProductButton && (
+                <button onClick={() => removeItem(product._id)}
+                        className="button is-danger is-outlined" style={{marginTop: '10px'}}>Remove</button>)
         )
     };
 
@@ -98,7 +105,8 @@ const Card = ({
                     <Link to={`/product/${product._id}`}>
                         {showViewButton(showViewProductButton)}
                     </Link>
-                    {showCartButton(showAddToCartButton)}
+                    {showAddToCart(showAddToCartButton)}
+                    {showRemoveButton(showRemoveProductButton)}
                     {showCartUpdateOption(cartUpdate)}
                 </div>
             </div>
