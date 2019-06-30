@@ -4,7 +4,7 @@ import {getCart} from "./cartHelpers";
 import {Link} from "react-router-dom";
 import Card from "./card";
 import '../App.css'
-import Search from "./Search";
+import Checkout from "./Checkout";
 
 const Cart = () => {
     const [items, setItems] = useState([]);
@@ -58,7 +58,9 @@ const Cart = () => {
                 </div>
                 <div className="column is-half">
                     <div className="container is-fluid">
-                        <h2>show checkout options/shipping address/total/update quantity</h2>
+                        <h2 className="is-size-4 has-text-weight-bold has-text-black">Your Cart Summary</h2>
+                        <hr/>
+                        <Checkout products={items}/>
                     </div>
                 </div>
             </div>
