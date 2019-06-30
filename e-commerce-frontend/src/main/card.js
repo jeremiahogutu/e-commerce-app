@@ -1,9 +1,13 @@
-import React, {Fragment} from 'react';
+import React, {Fragment, useState} from 'react';
 import {Link} from "react-router-dom";
 import ShowImage from "./ShowImage";
+import {addItem} from "./cartHelpers";
+import {Redirect} from "react-router-dom";
 import moment from 'moment'
 
 const Card = ({product, showViewProductButton = true}) => {
+
+    const [redirect, setRedirect] = useState(false);
 
     const showViewButton = showViewProductButton => {
         return (
@@ -16,9 +20,21 @@ const Card = ({product, showViewProductButton = true}) => {
         )
     };
 
+    const addToCart = () => {
+        addItem(product, () => {
+            setRedirect(true)
+        })
+    };
+
+    const shouldRedirect = redirect => {
+        if (redirect) {
+            return <Redirect to={"/cart"}/>
+        }
+    };
+
     const showAddToCartButton = () => {
         return (
-            <button className="button is-warning is-outlined" style={{marginTop: '10px'}}>Add Product</button>
+            <button onClick={addToCart} className="button is-warning is-outlined" style={{marginTop: '10px'}}>Add To Cart</button>
         )
     };
 
@@ -28,6 +44,7 @@ const Card = ({product, showViewProductButton = true}) => {
 
     return (
         <Fragment>
+            {shouldRedirect(redirect)}
             <div className="card-image">
                 <ShowImage item={product} url="product"/>
             </div>
