@@ -125,7 +125,7 @@ const Shop = () => {
                         </div>
                     </div>
                     <div className="column is-three-quarters-desktop is-full-mobile">
-                        <h3 className="is-size-4 has-text-weight-bold has-text-black has-text-centered">Products</h3>
+                        <h3 className="is-size-4 has-text-weight-bold has-text-black has-text-centered">Comic Books</h3>
                         <div className="columns container is-fluid is-flex" style={{flexWrap: 'wrap'}}>
                             {filteredResults.map((product, i) =>
                                 (

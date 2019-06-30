@@ -5,7 +5,7 @@ import {addItem} from "./cartHelpers";
 import {Redirect} from "react-router-dom";
 import moment from 'moment'
 
-const Card = ({product, showViewProductButton = true}) => {
+const Card = ({product, showViewProductButton = true, showAddToCartButton = true}) => {
 
     const [redirect, setRedirect] = useState(false);
 
@@ -32,9 +32,9 @@ const Card = ({product, showViewProductButton = true}) => {
         }
     };
 
-    const showAddToCartButton = () => {
+    const showCartButton = showAddToCartButton => {
         return (
-            <button onClick={addToCart} className="button is-warning is-outlined" style={{marginTop: '10px'}}>Add To Cart</button>
+            showAddToCartButton && (<button onClick={addToCart} className="button is-warning is-outlined" style={{marginTop: '10px'}}>Add To Cart</button>)
         )
     };
 
@@ -65,7 +65,7 @@ const Card = ({product, showViewProductButton = true}) => {
                     <Link to={`/product/${product._id}`} >
                         {showViewButton(showViewProductButton)}
                     </Link>
-                    {showAddToCartButton()}
+                    {showCartButton(showAddToCartButton)}
                 </div>
             </div>
         </Fragment>
