@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import Layout from "./Layout";
 import {read} from "./apiMain";
+import Card from "./card";
 
 const Product = (props) => {
     const [product, setProduct] = useState({});
@@ -24,11 +25,19 @@ const Product = (props) => {
 
     return (
         <Layout
-            title="Home"
-            description="Node React E-commerce App"
+            title={product && product.name}
+            description={
+                product &&
+                product.description &&
+                product.description.substring(0, 100)
+            }
         >
-            <h2>Single Product</h2>
-            <div>{JSON.stringify(product)}</div>
+            <div>{product && product.description &&
+            <div className='column is-12 is-flex'>
+                <div className="card" style={{width: '480px', marginTop: '25px'}}>
+                    <Card product={product} showViewProductButton={false}/>
+                </div>
+            </div> }</div>
         </Layout>
     );
 };
