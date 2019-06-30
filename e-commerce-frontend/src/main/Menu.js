@@ -63,7 +63,7 @@ const Menu = () => {
                         </li>
                         <li>
                             <NavLink to="/cart" onClick={closeNav} activeStyle={{color: '#ff9900'}} style={{position: 'relative'}} exact={true}>
-                                Cart <sup><small>{itemTotal()}</small></sup>
+                                Cart <sup><small className='sidenav-badge'>{itemTotal()}</small></sup>
                             </NavLink>
                         </li>
                         {isAuthenticated() && isAuthenticated().user.role === 0 && (
