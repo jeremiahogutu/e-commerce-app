@@ -66,7 +66,7 @@ const Shop = () => {
                 <button onClick={loadMore} className="button is-warning">Load More</button>
             )
         )
-    }
+    };
 
 
     useEffect(() => {
@@ -92,8 +92,8 @@ const Shop = () => {
         const data = prices;
         let priceArray = [];
 
-        for(let key in data) {
-            if(data[key]._id === parseInt(value)) {
+        for (let key in data) {
+            if (data[key]._id === parseInt(value)) {
                 priceArray = data[key].array
             }
         }
@@ -106,7 +106,7 @@ const Shop = () => {
             description="Search and find books of your choice"
         >
 
-            <div className="container is-fluid" >
+            <div className="container is-fluid">
                 <div className="notification has-background-white">
                     <div className="columns">
                         <div className="column" id='shop-filters'>
@@ -129,7 +129,13 @@ const Shop = () => {
                             <h3 className="is-size-4 has-text-weight-bold has-text-black has-text-centered">Products</h3>
                             <div className="columns container is-fluid is-flex" style={{flexWrap: 'wrap'}}>
                                 {filteredResults.map((product, i) =>
-                                    (<Card key={i} product={product}/>
+                                    (
+                                        <div className='column is-4 is-flex' style={{justifyContent: 'center'}}>
+                                            <div className="card" style={{width: '350px', marginTop: '25px'}}>
+                                                <Card style={{width: '350px', marginTop: '25px'}} key={i}
+                                                      product={product}/>
+                                            </div>
+                                        </div>
                                     ))}
                             </div>
                             <hr/>
