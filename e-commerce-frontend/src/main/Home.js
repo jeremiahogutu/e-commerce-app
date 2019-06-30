@@ -3,6 +3,7 @@ import Layout from './Layout'
 import {getProducts} from "./apiMain";
 import Card from "./card";
 import Search from "./Search";
+import '../App.css'
 
 const Home = () => {
     const [productsBySell, setProductsBySell] = useState([]);
@@ -57,7 +58,7 @@ const Home = () => {
                 {productsByArrival.map((product, i) =>
                     (
                         <div className='column is-3 is-flex' style={{justifyContent: 'center'}}>
-                            <div className="card" style={{width: '350px', marginTop: '25px'}}>
+                            <div className="card cardSize" style={{marginTop: '25px'}}>
                                 <Card key={i} product={product}/>
                             </div>
                         </div>
@@ -78,7 +79,7 @@ const Home = () => {
                 {productsBySell.map((product, i) =>
                     (
                         <div className='column is-3 is-flex' style={{justifyContent: 'center'}}>
-                            <div className="card" style={{width: '350px', marginTop: '25px'}}>
+                            <div className="card cardSize" style={{marginTop: '25px'}}>
                                 <Card key={i} product={product}/>
                             </div>
                         </div>

@@ -103,44 +103,42 @@ const Shop = () => {
     return (
         <Layout
             title="Shop"
-            description="Search and find books of your choice"
+            description="Search and find comic books of your choice"
         >
 
             <div className="container is-fluid">
-                <div className="notification has-background-white">
-                    <div className="columns">
-                        <div className="column" id='shop-filters'>
-                            <h4 className="is-size-4 has-text-weight-semibold has-text-black">Filter by categories</h4>
-                            <ul>
-                                <CheckBox
-                                    categories={categories}
-                                    handleFilters={filters => handleFilters(filters, 'category')}
-                                />
-                            </ul>
-                            <h4 className="is-size-4 has-text-weight-semibold has-text-black">Filter by price range</h4>
-                            <div>
-                                <RadioBox
-                                    prices={prices}
-                                    handleFilters={filters => handleFilters(filters, 'price')}
-                                />
-                            </div>
+                <div className="columns">
+                    <div className="column" id='shop-filters' style={{paddingLeft: '32px'}}>
+                        <h4 className="is-size-4 has-text-weight-semibold has-text-black">Filter by categories</h4>
+                        <ul>
+                            <CheckBox
+                                categories={categories}
+                                handleFilters={filters => handleFilters(filters, 'category')}
+                            />
+                        </ul>
+                        <h4 className="is-size-4 has-text-weight-semibold has-text-black">Filter by price range</h4>
+                        <div>
+                            <RadioBox
+                                prices={prices}
+                                handleFilters={filters => handleFilters(filters, 'price')}
+                            />
                         </div>
-                        <div className="column is-three-quarters">
-                            <h3 className="is-size-4 has-text-weight-bold has-text-black has-text-centered">Products</h3>
-                            <div className="columns container is-fluid is-flex" style={{flexWrap: 'wrap'}}>
-                                {filteredResults.map((product, i) =>
-                                    (
-                                        <div className='column is-4 is-flex' style={{justifyContent: 'center'}}>
-                                            <div className="card" style={{width: '350px', marginTop: '25px'}}>
-                                                <Card style={{width: '350px', marginTop: '25px'}} key={i}
-                                                      product={product}/>
-                                            </div>
+                    </div>
+                    <div className="column is-three-quarters-desktop is-full-mobile">
+                        <h3 className="is-size-4 has-text-weight-bold has-text-black has-text-centered">Comic Books</h3>
+                        <div className="columns container is-fluid is-flex" style={{flexWrap: 'wrap'}}>
+                            {filteredResults.map((product, i) =>
+                                (
+                                    <div className='column is-3 is-flex' style={{justifyContent: 'center'}}>
+                                        <div className="card cardSize" style={{marginTop: '25px'}}>
+                                            <Card key={i}
+                                                  product={product}/>
                                         </div>
-                                    ))}
-                            </div>
-                            <hr/>
-                            {loadMoreButton()}
+                                    </div>
+                                ))}
                         </div>
+                        <hr/>
+                        {loadMoreButton()}
                     </div>
                 </div>
             </div>
