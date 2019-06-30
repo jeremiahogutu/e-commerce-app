@@ -17,7 +17,7 @@ body {
     overflow-x: hidden;
     transition: 0.5s;
     padding-top: 20px;
-    box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
 }
 
 .sidenav p {
@@ -47,9 +47,46 @@ body {
     margin-left: 50px;
 }
 
+.cardSize {
+    width: 350px;
+}
+
+.cart-badge {
+    content: attr(data-badge);
+    background: #ff9900;
+    color: white;
+    width: auto;
+    min-width: 16px;
+    height: 16px;
+    text-align: center;
+    line-height: 16px;
+    border-radius: 50%;
+    box-shadow: 0 0 1px #333;
+    float: left;
+    font-size: 11px;
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin-top: 9px;
+}
+
+#notification-badge {
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin-top: 5px;
+}
+
 @media screen and (max-height: 450px) {
-    .sidenav {padding-top: 15px;}
-    /*.sidenav a {font-size: 18px;}*/
+    .sidenav {
+        padding-top: 15px;
+    }
+}
+
+@media screen and (max-width: 450px) {
+    .cardSize {
+        width: 300px;
+    }
 }
 
 @media screen and (min-width: 1024px) {

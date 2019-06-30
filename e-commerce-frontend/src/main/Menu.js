@@ -2,6 +2,7 @@ import React, {Fragment} from 'react';
 import {NavLink, withRouter} from "react-router-dom";
 import {signout, isAuthenticated} from "../auth";
 import shoppingLogo from '../assets/cart.svg'
+import {itemTotal} from "./cartHelpers";
 import '../App.css'
 
 const Menu = () => {
@@ -58,6 +59,11 @@ const Menu = () => {
                             <NavLink to="/shop" onClick={closeNav} activeStyle={{color: '#ff9900'}}
                                      exact={true}>
                                 Shop
+                            </NavLink>
+                        </li>
+                        <li>
+                            <NavLink to="/cart" onClick={closeNav} activeStyle={{color: '#ff9900'}} style={{position: 'relative'}} exact={true}>
+                                Cart <sup><small>{itemTotal()}</small></sup>
                             </NavLink>
                         </li>
                         {isAuthenticated() && isAuthenticated().user.role === 0 && (
@@ -126,6 +132,9 @@ const Menu = () => {
                     </NavLink>
                     <NavLink className="navbar-item" to="/shop" activeStyle={{color: '#ff9900'}} exact={true}>
                         Shop
+                    </NavLink>
+                    <NavLink className="navbar-item" style={{position: 'relative'}} to="/cart" activeStyle={{color: '#ff9900'}} exact={true}>
+                        Cart <sup><small className="cart-badge">{itemTotal()}</small></sup>
                     </NavLink>
                     {isAuthenticated() && isAuthenticated().user.role === 0 && (
                         <NavLink className="navbar-item" to="/user/dashboard" activeStyle={{color: '#ff9900'}}
