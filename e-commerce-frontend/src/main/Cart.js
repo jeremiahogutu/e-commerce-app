@@ -21,11 +21,16 @@ const Cart = () => {
                         has {`${items.length}`} items</h2>
                     <hr/>
                 </div>
-                <div className="is-flex">
+                <div className="is-flex" style={{flexWrap: 'wrap', justifyContent: 'space-around'}}>
                     {items.map((product, i) => (
-                        <div className='column is-4 is-flex'>
+                        <div style={{width: '300px'}}>
                             <div className="card" style={{marginTop: '25px'}}>
-                                <Card key={i} product={product} showAddToCartButton={false}/>
+                                <Card
+                                    key={i}
+                                    product={product}
+                                    showAddToCartButton={false}
+                                    cartUpdate={true}
+                                />
                             </div>
                         </div>
                     ))}
