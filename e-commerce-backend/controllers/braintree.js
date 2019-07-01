@@ -15,6 +15,6 @@ exports.generateToken = (req, res) => {
             res.status(500).send(err)
         } else {
             res.send(response)
-        }     
+        }
     })
 };
