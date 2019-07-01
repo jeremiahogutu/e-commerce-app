@@ -1,8 +1,8 @@
 import React, {useState, useEffect} from 'react';
 import {isAuthenticated} from "../auth";
 import {Link} from "react-router-dom";
-import {getBraintreeClientToken} from "./apiMain";
-import Dropin from 'braintree-web-drop-in-react'
+import {getBraintreeClientToken, processPayment} from "./apiMain";
+import DropIn from 'braintree-web-drop-in-react'
 
 const Checkout = ({products}) => {
     const [data, setData] = useState({
@@ -21,7 +21,7 @@ const Checkout = ({products}) => {
             if (data.error) {
                 setData({...data, error: data.error})
             } else {
-                setData({...data, clientToken: data.clientToken})
+                setData({clientToken: data.clientToken})
             }
         })
     };
@@ -50,19 +50,33 @@ const Checkout = ({products}) => {
         // send the nonce to your server
         // nonce = data.instance.requestPaymentMethod()
         let nonce;
-        let getNonce = data.instance.requestPaymentMethod()
+        let getNonce = data.instance
+            .requestPaymentMethod()
             .then(data => {
-                console.log(data);
+                // console.log(data);
                 nonce = data.nonce;
                 // once you have nonce (card type, card number) send nonce as 'paymentMethodNonce'
                 // and also total to be charged
-                console.log(
-                    'send nonce and total to process: ',
-                    nonce,
-                    getTotal(products))
+                // console.log(
+                //     'send nonce and total to process: ',
+                //     nonce,
+                //     getTotal(products))
+                const paymentData = {
+                    paymentMethodNonce: nonce,
+                    amount: getTotal(products)
+                };
+                console.log(paymentData);
+                processPayment(userId, token, paymentData)
+                    .then(response => {
+                        setData({
+                            ...data,
+                            success: response.success
+                        })
+                    })
+                    .catch(error => console.log(error))
             })
             .catch(error => {
-                console.log('dropin error', error);
+                // console.log('dropin error', error);
                 setData({...data, error: error.message})
             })
     };
@@ -71,7 +85,7 @@ const Checkout = ({products}) => {
         <div onBlur={() => setData({...data, error: ''})}>
             {data.clientToken !== null && products.length > 0 ? (
                 <div>
-                    <Dropin options={{
+                    <DropIn options={{
                         authorization: data.clientToken
                     }} onInstance={instance => (data.instance = instance)}/>
                     <button onClick={purchase} className="button is-success">Purchase</button>
@@ -81,14 +95,22 @@ const Checkout = ({products}) => {
     );
 
     const showError = error => (
-        <div className="has-text-danger" style={{display: error ? '' : ''}}>
+        <div className="has-text-danger" style={{display: error ? '' : 'none'}}>
             {error}
         </div>
     );
 
+    const showSuccess = success => (
+        <div className="has-text-success" style={{display: success ? '' : 'none'}}>
+            Thank you! Payment was successful!
+        </div>
+    );
+
+
     return (
         <div>
-            <h2>Total: ${getTotal()}</h2>
+            <h2 className="is-size-4 has-text-weight-bold has-text-black">Total: ${getTotal()}</h2>
+            {showSuccess(data.success)}
             {showError(data.error)}
             {showCheckout()}
         </div>
