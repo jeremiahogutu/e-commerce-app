@@ -107,7 +107,7 @@ const Shop = () => {
         >
 
             <div className="container is-fluid">
-                <div className="columns">
+                <div className="columns is-marginless">
                     <div className="column" id='shop-filters' style={{paddingLeft: '32px'}}>
                         <h4 className="is-size-4 has-text-weight-semibold has-text-black">Filter by categories</h4>
                         <ul>
@@ -129,7 +129,7 @@ const Shop = () => {
                         <div className="columns container is-fluid is-flex" style={{flexWrap: 'wrap'}}>
                             {filteredResults.map((product, i) =>
                                 (
-                                    <div key={i} className='column is-4-desktop is-6-tablet is-flex' style={{justifyContent: 'center'}}>
+                                    <div key={i} className='column is-4-desktop is-6-tablet is-flex is-paddingless' style={{justifyContent: 'center'}}>
                                         <div className="card cardSize" style={{marginTop: '25px'}}>
                                             <Card
                                                   product={product}/>

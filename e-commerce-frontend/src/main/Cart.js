@@ -49,7 +49,7 @@ const Cart = () => {
             title="Shopping Cart"
             description="Manage your cart items. Add remove checkout or continue shopping."
         >
-            <div className="columns">
+            <div className="columns is-marginless">
                 <div className="column is-half">
                     <div className="container is-fluid">
                         {items.length > 0 ? showItems(items) : noItemsMessage()}
