@@ -124,7 +124,7 @@ const Checkout = ({products}) => {
 
     const showLoading = (loading) => (
         loading && (
-            <h2>Loading...</h2>
+            <h2 className="has-text-info">Loading...</h2>
         )
     );
 
