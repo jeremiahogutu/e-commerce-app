@@ -82,9 +82,12 @@ const Checkout = ({products}) => {
                             products,
                             transaction_id: response.transaction_id,
                             amount: response.transaction.amount,
-
+                            address: data.address
                         };
-                        createOrder(userId, token, data);
+                        createOrder(userId, token, createOrderData)
+                            .then(response => {
+
+                            });
                         setData({
                             ...data,
                             success: response.success
