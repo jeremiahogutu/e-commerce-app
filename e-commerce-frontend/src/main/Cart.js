@@ -23,10 +23,9 @@ const Cart = () => {
                 </div>
                 <div className="is-flex" style={{flexWrap: 'wrap', justifyContent: 'space-around'}}>
                     {items.map((product, i) => (
-                        <div style={{width: '300px'}}>
+                        <div key={i} style={{width: '300px'}}>
                             <div className="card" style={{marginTop: '25px'}}>
                                 <Card
-                                    key={i}
                                     product={product}
                                     showAddToCartButton={false}
                                     cartUpdate={true}

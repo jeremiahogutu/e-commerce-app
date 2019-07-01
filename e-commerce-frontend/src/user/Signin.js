@@ -80,7 +80,7 @@ const Signin = () => {
 
     const showLoading = () => (
         loading && (<div className="has-text-info">
-            <h2>Loading...</h2>
+            <h2 className="has-text-info">Loading...</h2>
         </div>)
     );
 
