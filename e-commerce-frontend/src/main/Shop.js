@@ -129,7 +129,7 @@ const Shop = () => {
                         <div className="columns container is-fluid is-flex" style={{flexWrap: 'wrap'}}>
                             {filteredResults.map((product, i) =>
                                 (
-                                    <div className='column is-3 is-flex' style={{justifyContent: 'center'}}>
+                                    <div className='column is-4-desktop is-6-tablet is-flex' style={{justifyContent: 'center'}}>
                                         <div className="card cardSize" style={{marginTop: '25px'}}>
                                             <Card key={i}
                                                   product={product}/>

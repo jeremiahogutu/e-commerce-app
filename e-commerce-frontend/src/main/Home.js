@@ -57,9 +57,9 @@ const Home = () => {
             <div className="columns container is-fluid is-flex" style={{flexWrap: 'wrap'}}>
                 {productsByArrival.map((product, i) =>
                     (
-                        <div className='column is-3 is-flex' style={{justifyContent: 'center'}}>
+                        <div key={i} className='column is-3 is-flex' style={{justifyContent: 'center'}}>
                             <div className="card cardSize" style={{marginTop: '25px'}}>
-                                <Card key={i} product={product}/>
+                                <Card product={product}/>
                             </div>
                         </div>
                     ))}
@@ -78,9 +78,9 @@ const Home = () => {
             <div className="columns container is-fluid is-flex" style={{flexWrap: 'wrap'}}>
                 {productsBySell.map((product, i) =>
                     (
-                        <div className='column is-3 is-flex' style={{justifyContent: 'center'}}>
+                        <div key={i} className='column is-3 is-flex' style={{justifyContent: 'center'}}>
                             <div className="card cardSize" style={{marginTop: '25px'}}>
-                                <Card key={i} product={product}/>
+                                <Card  product={product}/>
                             </div>
                         </div>
                     ))}
