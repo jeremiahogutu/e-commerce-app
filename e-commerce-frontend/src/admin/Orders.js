@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import {isAuthenticated} from "../auth";
 import Layout from "../main/Layout";
-import {listOrders, getStatusValues} from "./apiAdmin";
+import {listOrders, getStatusValues, updateOrderStatus} from "./apiAdmin";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faBook, faDollarSign} from "@fortawesome/free-solid-svg-icons";
 import moment from 'moment'
@@ -40,7 +40,7 @@ const Orders = () => {
     const showOrdersLength = () => {
         if (orders.length > 0) {
             return (
-                <h1 className='is-size-4 has-text-weight-bold has-text-black'>Total orders: {orders.length}</h1>
+                <h1 className='is-size-5 has-text-weight-bold has-text-black'>Total orders: {orders.length}</h1>
             )
         } else {
             return <h1 className='has-text-danger'>No orders</h1>
@@ -54,7 +54,13 @@ const Orders = () => {
     );
 
     const handleStatusChange = (e, orderId) => {
-        console.log('update order status')
+        updateOrderStatus(user._id, token, orderId, e.target.value).then(data => {
+            if (data.error) {
+                console.log('Status update failed')
+            } else {
+                loadOrders()
+            }
+        })
     };
 
     const showStatus = order => (
@@ -85,7 +91,7 @@ const Orders = () => {
                 {orders.map((order, orderIndex) => {
                     return (
                         <div key={orderIndex} style={{margin: '25px 0'}}>
-                            <h2 className="is-size-4 has-text-weight-bold has-text-black">Order ID: {order._id}</h2>
+                            <h2 className="is-size-5 has-text-weight-bold has-text-black">Order ID: {order._id}</h2>
                             <div className="list">
                                 <li className="list-item has-background-white">
                                     {/*Status: <span className="has-text-info">{order.status}</span>*/}
