@@ -1,5 +1,5 @@
 const {Order, CartItem} = require('../models/order');
-const { errorHandler } = require('../helpers/dbErrorHandler');
+const {errorHandler} = require('../helpers/dbErrorHandler');
 
 exports.create = (req, res) => {
     // console.log('CREATED ORDER', req.body)
@@ -13,4 +13,18 @@ exports.create = (req, res) => {
         }
         res.json(data)
     })
+};
+
+exports.listOrders = (req, res) => {
+    Order.find()
+        .populate('user', '_id name address')
+        .sort('-created')
+        .exec((error, orders) => {
+            if (error) {
+                return res.status(400).json({
+                    error: errorHandler(error)
+                })
+            }
+            res.json(orders)
+        })
 };
