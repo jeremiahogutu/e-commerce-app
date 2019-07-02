@@ -2,6 +2,8 @@ import React, {useState, useEffect} from 'react';
 import {isAuthenticated} from "../auth";
 import Layout from "../main/Layout";
 import {listOrders} from "./apiAdmin";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {faBook, faDollarSign} from "@fortawesome/free-solid-svg-icons";
 import moment from 'moment'
 
 const Orders = () => {
@@ -33,6 +35,12 @@ const Orders = () => {
         }
     };
 
+    const showInput = (key, value) => (
+        <li className="panel-block">
+            {key} : {value}
+        </li>
+    );
+
     return (
         <Layout
             title="Orders"
@@ -58,15 +66,25 @@ const Orders = () => {
                                     Ordered By: <span className="has-text-info">{order.user.name}</span>
                                 </li>
                                 <li className="list-item">
-                                    Ordered On: <span className="has-text-info">{moment(order.createdAt).fromNow()}</span>
+                                    Ordered On: <span
+                                    className="has-text-info">{moment(order.createdAt).fromNow()}</span>
                                 </li>
                                 <li className="list-item">
                                     Delivery Address: <span className="has-text-info">{order.address}</span>
                                 </li>
-                                <li className="list-item is-capitalized">
-                                    Total products ordered: <span className="has-text-info">{order.products.length}</span>
-                                </li>
                             </div>
+                            <h3 className=" is-capitalized">
+                                Total comic books ordered: <span
+                            >{order.products.length}</span>
+                            </h3>
+                            {order.products.map((product, productIndex) => (
+                                <div key={productIndex} style={{border: '1px solid indigo'}}>
+                                    {showInput('Comic Book Name', product.name)}
+                                    {showInput('Comic Book Price', product.price)}
+                                    {showInput('Comic Book Total', product.count)}
+                                    {showInput('Comic Book Id', product._id)}
+                                </div>
+                            ))}
                         </div>
                     )
                 })}
