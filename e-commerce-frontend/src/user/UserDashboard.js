@@ -5,7 +5,7 @@ import {NavLink} from "react-router-dom";
 
 const Dashboard = () => {
 
-    const {user: {name, email, role}} = isAuthenticated();
+    const {user: {_id, name, email, role}} = isAuthenticated();
 
     const userLinks = () => {
         return (
@@ -19,7 +19,7 @@ const Dashboard = () => {
                         <NavLink to="/cart" className="list-item has-background-white has-text-link" style={{textDecoration: 'none'}}>
                             My Cart
                         </NavLink>
-                        <NavLink to="/cart" className="list-item has-background-white has-text-link" style={{textDecoration: 'none'}}>
+                        <NavLink to={`/profile/${_id}`} className="list-item has-background-white has-text-link" style={{textDecoration: 'none'}}>
                             Update Profile
                         </NavLink>
                     </div>
