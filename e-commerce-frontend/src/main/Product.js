@@ -41,9 +41,9 @@ const Product = (props) => {
             }
         >
             <div>{product && product.description &&
-            <div className='columns is-flex'>
+            <div className='columns is-marginless'>
                 <div className="column is-three-quarters-desktop">
-                    <div className="card" style={{width: '600px', margin: '60px auto 0'}}>
+                    <div className="card" style={{maxWidth: '600px', margin: '60px auto 0'}}>
                         <Card product={product} showViewProductButton={false}/>
                     </div>
                 </div>

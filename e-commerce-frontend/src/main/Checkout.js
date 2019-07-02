@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import {isAuthenticated} from "../auth";
 import {Link} from "react-router-dom";
-import {getBraintreeClientToken, processPayment} from "./apiMain";
+import {getBraintreeClientToken, processPayment, createOrder} from "./apiMain";
 import DropIn from 'braintree-web-drop-in-react'
 import {emptyCart} from "./cartHelpers";
 
@@ -32,6 +32,13 @@ const Checkout = ({products}) => {
         getToken(userId, token)
     }, []);
 
+    const handleAddress = event => {
+        setData({
+            ...data,
+            address: event.target.value
+        })
+    };
+
     const getTotal = () => {
         return products.reduce((currentValue, nextValue) => {
             return currentValue + nextValue.count * nextValue.price
@@ -47,6 +54,8 @@ const Checkout = ({products}) => {
             </Link>
         )
     };
+
+    let deliveryAddress = data.address;
 
     const purchase = () => {
         setData({loading: true});
@@ -68,9 +77,19 @@ const Checkout = ({products}) => {
                     paymentMethodNonce: nonce,
                     amount: getTotal(products)
                 };
-                console.log(paymentData);
                 processPayment(userId, token, paymentData)
                     .then(response => {
+
+                        const createOrderData = {
+                            products,
+                            transaction_id: response.transaction.id,
+                            amount: response.transaction.amount,
+                            address: deliveryAddress
+                        };
+                        createOrder(userId, token, createOrderData)
+                            .then(response => {
+
+                            });
                         setData({
                             ...data,
                             success: response.success
@@ -78,12 +97,11 @@ const Checkout = ({products}) => {
 
                         emptyCart(() => {
                             console.log('payment success and empty cart');
-                            setData({ loading: false });
+                            setData({loading: false});
                         })
                     })
                     .catch(error => {
-                        console.log(error);
-                        setData({ loading: false })
+                        setData({loading: false})
                     })
             })
             .catch(error => {
@@ -95,7 +113,18 @@ const Checkout = ({products}) => {
     const showDropIn = () => (
         <div onBlur={() => setData({...data, error: ''})}>
             {data.clientToken !== null && products.length > 0 ? (
-                <div>
+                <div className="is-flex" style={{flexDirection: 'column'}}>
+                    <div className="field" style={{marginTop: '25px'}}>
+                        <label className="label">Delivery address:</label>
+                        <p className="control">
+                    <textarea
+                        className="textarea"
+                        onChange={handleAddress}
+                        placeholder="Type you delivery address here..."
+                        value={data.address}
+                    />
+                        </p>
+                    </div>
                     <DropIn
                         options={{
                             authorization: data.clientToken,
@@ -104,7 +133,7 @@ const Checkout = ({products}) => {
                             }
                         }}
                         onInstance={instance => (data.instance = instance)}/>
-                    <button onClick={purchase} className="button is-success">Purchase</button>
+                    <button onClick={purchase} className="button is-success" style={{width: '200px', alignSelf: 'center', marginTop: '15px'}}>Purchase</button>
                 </div>
             ) : null}
         </div>
@@ -127,7 +156,6 @@ const Checkout = ({products}) => {
             <h2 className="has-text-info">Loading...</h2>
         )
     );
-
 
 
     return (
