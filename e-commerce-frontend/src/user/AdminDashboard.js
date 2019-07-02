@@ -22,6 +22,9 @@ const AdminDashboard = () => {
                         <NavLink to="/create/product" className="list-item has-background-white has-text-link" style={{textDecoration: 'none'}}>
                             Create Product
                         </NavLink>
+                        <NavLink to="/admin/orders" className="list-item has-background-white has-text-link" style={{textDecoration: 'none'}}>
+                            View Orders
+                        </NavLink>
                     </div>
                 </div>
             </Fragment>
