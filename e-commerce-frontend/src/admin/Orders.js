@@ -1,13 +1,14 @@
 import React, {useState, useEffect} from 'react';
 import {isAuthenticated} from "../auth";
 import Layout from "../main/Layout";
-import {listOrders} from "./apiAdmin";
+import {listOrders, getStatusValues} from "./apiAdmin";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faBook, faDollarSign} from "@fortawesome/free-solid-svg-icons";
 import moment from 'moment'
 
 const Orders = () => {
     const [orders, setOrders] = useState([]);
+    const [statusValues, setStatusValues] = useState([]);
 
     const {user, token} = isAuthenticated();
 
@@ -21,8 +22,19 @@ const Orders = () => {
         })
     };
 
+    const loadStatusValues = () => {
+        getStatusValues(user._id, token).then(data => {
+            if (data.error) {
+                console.log(data.error)
+            } else {
+                setStatusValues(data)
+            }
+        })
+    };
+
     useEffect(() => {
-        loadOrders()
+        loadOrders();
+        loadStatusValues();
     }, []);
 
     const showOrdersLength = () => {
@@ -41,6 +53,28 @@ const Orders = () => {
         </li>
     );
 
+    const handleStatusChange = (e, orderId) => {
+        console.log('update order status')
+    };
+
+    const showStatus = order => (
+        <div className="field">
+            <label className="label">Status: {order.status}</label>
+            <div className="control">
+                <div className="select">
+                    <select
+                        onChange={e => handleStatusChange(e, order._id)}
+                    >
+                        <option>Update Status</option>
+                        {statusValues.map((status, index) => (
+                            <option key={index} value={status}>{status}</option>
+                        ))}
+                    </select>
+                </div>
+            </div>
+        </div>
+    );
+
     return (
         <Layout
             title="Orders"
@@ -54,7 +88,8 @@ const Orders = () => {
                             <h2 className="is-size-4 has-text-weight-bold has-text-black">Order ID: {order._id}</h2>
                             <div className="list">
                                 <li className="list-item has-background-white">
-                                    Status: <span className="has-text-info">{order.status}</span>
+                                    {/*Status: <span className="has-text-info">{order.status}</span>*/}
+                                    {showStatus(order)}
                                 </li>
                                 <li className="list-item">
                                     Transaction ID: <span className="has-text-info">{order.transaction_id}</span>
