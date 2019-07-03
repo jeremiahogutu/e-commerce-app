@@ -14,7 +14,7 @@ const ManageProducts = () => {
             title="Manage comic books"
             description="Perform Crud on comic books"
         >
-
+            <div>...</div>
         </Layout>
     );
 };
