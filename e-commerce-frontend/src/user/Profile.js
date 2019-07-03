@@ -1,10 +1,10 @@
 import React, {useState, useEffect} from 'react';
 import Layout from "../main/Layout";
 import {isAuthenticated} from "../auth";
-import {Link} from "react-router-dom";
+import {Link, Redirect} from "react-router-dom";
 import {read, update, updateUser} from "./ApiUser";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faCloudUploadAlt, faDollarSign, faPlusSquare} from "@fortawesome/free-solid-svg-icons";
+import { faUser, faEnvelope, faLock } from "@fortawesome/free-solid-svg-icons";
 
 const Profile = ({match}) => {
     const [values, setValues] = useState({
@@ -15,7 +15,7 @@ const Profile = ({match}) => {
         success: false
     });
 
-    const {token} = isAuthenticated()
+    const {token} = isAuthenticated();
 
     const {name, email, password, error, success} = values;
 
@@ -40,67 +40,96 @@ const Profile = ({match}) => {
         init(match.params.userId)
     }, []);
 
+    const handleChange = name => e => {
+        setValues({
+            ...values,
+            error: false,
+            [name]: e.target.value
+        })
+    };
+
+    const clickSubmit = e => {
+        e.preventDefault();
+        update(match.params.userId, token, {name, email, password})
+            .then(data => {
+                if (data.error) {
+                    console.log(data.error)
+                } else {
+                    updateUser(data, () => {
+                        setValues({
+                            ...values,
+                            name: data.name,
+                            email: data.email,
+                            success: true
+                        })
+                    })
+                }
+            })
+    };
+
+    const redirectUser = success => {
+        if (success) {
+            return <Redirect to="/user/dashboard"/>
+        }
+    };
+
     const profileUpdate = (name, email, password) => (
         <form style={{maxWidth: '900px'}}>
             <div className="field" style={{marginTop: '25px'}}>
+                <label className='label'>Name</label>
                 <p className="control has-icons-left has-icons-right">
                     <input
                         className="input"
                         type="text"
+                        onChange={handleChange('name')}
                         placeholder="User Name"
                         value={name}
                         autoFocus
                     />
                     <span className="icon is-small is-left">
-      <FontAwesomeIcon icon={faPlusSquare}/>
+      <FontAwesomeIcon icon={faUser}/>
     </span>
                 </p>
             </div>
             <div className="field" style={{marginTop: '25px'}}>
-                <p className="control">
-                    <textarea
-                        className="textarea"
-                        placeholder="Description"
-                        value=''
-                    />
-                </p>
-            </div>
-            <div className="field" style={{marginTop: '25px'}}>
-                <p className="control has-icons-left">
+                <label className='label'>Email</label>
+                <p className="control has-icons-left has-icons-right">
                     <input
                         className="input"
-                        type="number"
-                        placeholder="Price"
-                        value=''
+                        type="email"
+                        onChange={handleChange('email')}
+                        placeholder="User Name"
+                        value={email}
                     />
                     <span className="icon is-small is-left">
-      <FontAwesomeIcon icon={faDollarSign}/>
+      <FontAwesomeIcon icon={faEnvelope}/>
     </span>
                 </p>
             </div>
             <div className="field" style={{marginTop: '25px'}}>
-                <p className="control has-icons-left">
+                <label className='label'>Password</label>
+                <p className="control has-icons-left has-icons-right">
                     <input
                         className="input"
-                        type="number"
-                        placeholder="Quantity"
-                        value=''
+                        type="password"
+                        onChange={handleChange('password')}
+                        placeholder="password"
+                        value={password}
                     />
                     <span className="icon is-small is-left">
-      <FontAwesomeIcon icon={faPlusSquare}/>
+      <FontAwesomeIcon icon={faLock}/>
     </span>
                 </p>
             </div>
             <div className="field" style={{marginTop: '25px'}}>
                 <p className="control is-flex" style={{justifyContent: 'space-between', alignItems: 'center'}}>
-                    <button className="button is-success">
-                        Update User
+                    <button onClick={clickSubmit} className="button is-success">
+                        Submit
                     </button>
                 </p>
-
             </div>
         </form>
-    )
+    );
 
     return (
         <Layout
@@ -109,6 +138,7 @@ const Profile = ({match}) => {
             className='is-flex'
         >
             {profileUpdate(name, email, password)}
+            {redirectUser(success)}
         </Layout>
     )
 };
