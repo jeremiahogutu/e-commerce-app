@@ -26,6 +26,9 @@ const AdminDashboard = () => {
                             View Orders
                         </NavLink>
                         <NavLink to="/admin/orders" className="list-item has-background-white has-text-link" style={{textDecoration: 'none'}}>
+                            Manage Orders
+                        </NavLink>
+                        <NavLink to="/admin/products" className="list-item has-background-white has-text-link" style={{textDecoration: 'none'}}>
                             Manage Products
                         </NavLink>
                     </div>

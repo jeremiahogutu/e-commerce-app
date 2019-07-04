@@ -97,7 +97,7 @@ export const updateOrderStatus = (userId, token, orderId, status) => {
 // delete a single product
 
 export const getProducts = () => {
-    return fetch(`${API}/products`, {
+    return fetch(`${API}/products?limit=undefined`, {
         method: 'GET'
     })
         .then(response => {
