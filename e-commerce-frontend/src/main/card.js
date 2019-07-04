@@ -56,7 +56,7 @@ const Card = ({
 
     const showStock = (quantity) => {
         return quantity > 0 ? <span className="button is-primary is-rounded">In Stock</span> :
-            <span className="button is-primary is-rounded">Out of Stock</span>
+            <span className="button is-danger is-rounded">Out of Stock</span>
     };
 
     const handleChange = productId => event => {
