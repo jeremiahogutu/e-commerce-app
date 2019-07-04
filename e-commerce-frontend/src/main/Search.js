@@ -108,7 +108,6 @@ const Search = () => {
                                             <option value="All">Pick Category</option>
                                             {categories.map((category, i) => (
                                                 <option key={i} value={category._id}>{category.name}</option>))}
-                                            <option>Sales</option>
                                         </select>
                                     </div>
                                 </div>
