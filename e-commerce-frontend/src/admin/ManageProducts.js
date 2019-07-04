@@ -52,7 +52,7 @@ const ManageProducts = () => {
                     >
                         <strong className='has-text-centered'>{product.name}</strong>
                         <div className='buttonContainer' style={{display: 'flex', justifyContent: 'space-around'}}>
-                            <Link to={`/admin/product/update/${product._id}`}>
+                            <Link to={`/admin/update/product/${product._id}`}>
                             <span className="button is-primary is-rounded">
                                 Update
                             </span>
