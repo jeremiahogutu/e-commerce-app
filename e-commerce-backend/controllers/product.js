@@ -143,7 +143,7 @@ exports.update = (req, res) => {
 exports.list = (req, res) => {
     let order = req.query.order ? req.query.order : 'asc';
     let sortBy = req.query.sortBy ? req.query.sortBy : '_id';
-    let limit = req.query.limit ? parseInt(req.query.limit) : 6;
+    let limit = req.query.limit ? parseInt(req.query.limit) : 8;
 
 
     Product.find()
@@ -165,7 +165,7 @@ exports.list = (req, res) => {
 // other products with the same category will be returned
 
 exports.listRelated = (req, res) => {
-    let limit = req.query.limit ? parseInt(req.query.limit) : 6;
+    let limit = req.query.limit ? parseInt(req.query.limit) : 8;
 
     Product.find({_id: {$ne: req.product}, category: req.product.category})
         .limit(limit)
