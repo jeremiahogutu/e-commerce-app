@@ -10,7 +10,8 @@ const Card = ({
                   showViewProductButton = true,
                   showAddToCartButton = true,
                   cartUpdate = false,
-                  showRemoveProductButton = false
+                  showRemoveProductButton = false,
+                  preview = true
               }) => {
     const [redirect, setRedirect] = useState(false);
     const [count, setCount] = useState(product.count);
@@ -92,7 +93,13 @@ const Card = ({
                 <div className="media">
                     <div className="media-content">
                         <p className="title is-4 is-capitalized">{product.name}</p>
-                        <p className="subtitle is-6">{product.description.substring(0, 100)}</p>
+
+                        {preview ? (
+                            <p className="subtitle is-6">{product.description.substring(0, 100)}...</p>
+                        ):(
+                            <p className="subtitle is-6">{product.description}</p>
+                        )}
+
                     </div>
                 </div>
                 <div className="content">

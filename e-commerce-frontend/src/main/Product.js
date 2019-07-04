@@ -44,7 +44,7 @@ const Product = (props) => {
             <div className='columns is-marginless'>
                 <div className="column is-three-quarters-desktop">
                     <div className="card" style={{maxWidth: '600px', margin: '60px auto 0'}}>
-                        <Card product={product} showViewProductButton={false}/>
+                        <Card product={product} showViewProductButton={false} preview={false}/>
                     </div>
                 </div>
                 <div className="column is-one-quarter-desktop">
