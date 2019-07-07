@@ -139,11 +139,17 @@ const Checkout = ({products}) => {
         </div>
     );
 
-    const showError = error => (
-        <div className="has-text-danger" style={{display: error ? '' : 'none'}}>
-            {error}
-        </div>
-    );
+    const showError = error => {
+        if (error === 'User not found') {
+            return <p className="has-text-danger">Please sign in to checkout</p>
+        } else {
+            return (
+                <div className="has-text-danger" style={{display: error ? '' : 'none'}}>
+                    {error}
+                </div>
+            )
+        }
+    };
 
     const showSuccess = success => (
         <div className="has-text-success" style={{display: success ? '' : 'none'}}>
